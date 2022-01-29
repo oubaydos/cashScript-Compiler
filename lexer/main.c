@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
   // printf("BRAVO: le programme est correcte!!!");
   analy_lex(fp);
   printf("BRAVO: le programme est correcte!!!");
+  // you should assert that the expected tokens in the file ../tests/expected1.txt are the same as the result tokens of analysing test1.txt
   fclose(fp);
   return 0;
   //}

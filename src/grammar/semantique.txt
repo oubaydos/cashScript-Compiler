@@ -3,3 +3,4 @@ LA TABLE DES SYMBOLES :
     PAS D'OMBRE VARIABLES -- no variable shadowing : once a variable is declared, it is reachable in the entire code
     TOUTE VARIABLE DOIT ETRE DECLARER AVANT D'ETRE UTILISE
     LES OPERATEURS UTILISE ONT DES VARIABLES DE TYPE COMPATIBLE -- exemple : 5 + 5; "a" +"hfb"; are okay, but "he" / 2  or arr[1.64] are not
+    LES NOMBRE DANS LA VERSION SONT POSITIFS
