@@ -52,7 +52,7 @@ typedef enum {
     TYPE_SIGNATURE_DONNEE,
     BOOLEAN_LITTERAL,
     
-    BYTES,
+    BYTES_TOKEN,
     UNITE,
     PRAGMA,
     ACCOLADE_F,
