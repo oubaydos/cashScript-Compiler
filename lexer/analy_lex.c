@@ -229,6 +229,16 @@ void analy_lex(FILE *fp){
         LEX_CODE code3;
         LEX_CODE code4;
         code1=curr_sym;
+
+        
+        if(curr_sym==TAILLE ||curr_sym==SPLIT ){
+            next_sym();
+            symbols[i]=(SYMBOL){ID_TOKEN,current_line};
+        i++;}
+
+
+
+
         if(curr_sym==PT_TOKEN){
             next_sym();
             code2=curr_sym;
@@ -239,7 +249,18 @@ void analy_lex(FILE *fp){
         i++;
        
             
-        }else if (curr_sym==INVERSER)
+        }
+            else if(curr_sym==TAILLE){
+            
+           
+            symbols[i]=(SYMBOL){TAILLE,current_line};
+        i++;
+       
+            
+        }
+        
+        
+        else if (curr_sym==INVERSER)
         {
             next_sym();
             code3=curr_sym;
@@ -267,9 +288,9 @@ void analy_lex(FILE *fp){
         i++;}}
         
         
-        else{print_token(code1) ;
+        else{
         symbols[i]=(SYMBOL){code1,current_line};
-        i++;symbols[i]=(SYMBOL){code2,current_line};
+        i++;symbols[i]=(SYMBOL){ID_TOKEN,current_line};
         i++;}
         }
         else{
