@@ -12,8 +12,8 @@ void next_sym(){
         case '-': curr_sym=MOINS_TOKEN;lex_get_next_char();break;
         //case '*': curr_sym=MULT_TOKEN;lex_get_next_char();break;
         //case '/': curr_sym=DIV_TOKEN;lex_get_next_char();break;
-        case ';': curr_sym=PV_TOKEN;lex_get_next_char();break;
-        case ',': curr_sym=VIR_TOKEN;lex_get_next_char();break;
+        case ';': curr_sym=POINT_VIRGULE_TOKEN;lex_get_next_char();break;
+        case ',': curr_sym=VIRGULE_TOKEN;lex_get_next_char();break;
        
         case ':': 
             lex_get_next_char();
@@ -39,17 +39,17 @@ void next_sym(){
                 lex_get_next_char();
             }
             break;
-        case '(': curr_sym=PO_TOKEN;lex_get_next_char();break;
-        case ')': curr_sym=PF_TOKEN;lex_get_next_char();break;
-        case '[': curr_sym=CROCHET_O;lex_get_next_char();break;
-        case ']': curr_sym=CROCHET_F;lex_get_next_char();break;
+        case '(': curr_sym=PARENTHESE_O_TOKEN;lex_get_next_char();break;
+        case ')': curr_sym=PARENTHESE_F_TOKEN;lex_get_next_char();break;
+        case '[': curr_sym=CROCHET_O_TOKEN;lex_get_next_char();break;
+        case ']': curr_sym=CROCHET_F_TOKEN;lex_get_next_char();break;
         //case '!': curr_sym=OPERATEUR_NON;lex_get_next_char();break;
-        case '%': curr_sym=OPERATEUR_MODULO;lex_get_next_char();break;
+        case '%': curr_sym=OPERATEUR_MODULO_TOKEN;lex_get_next_char();break;
        case '!': 
-            curr_sym=OPERATEUR_NON;
+            curr_sym=OPERATEUR_NON_TOKEN;
             lex_get_next_char();
             if(curr_char=='='){
-                curr_sym=OPERATEUR_DIFFERENT;
+                curr_sym=OPERATEUR_DIFFERENT_TOKEN;
                 lex_get_next_char();
             }
             break;
@@ -59,7 +59,7 @@ void next_sym(){
             curr_sym=MULT_TOKEN;
             lex_get_next_char();
             if(curr_char=='/'){
-                curr_sym=COMMENTAIRE;
+                curr_sym=COMMENTAIRE_TOKEN;
                 lex_get_next_char();
             }
             break;    
@@ -69,47 +69,51 @@ void next_sym(){
             curr_sym=DIV_TOKEN;
             lex_get_next_char();
             if(curr_char=='/'){
-                curr_sym=COMMENTAIRE_LIGNE;
+                curr_sym=COMMENTAIRE_LIGNE_TOKEN;
                 lex_get_next_char();
             }
             if(curr_char=='*'){
-                curr_sym=COMMENTAIRE;
+                curr_sym=COMMENTAIRE_TOKEN;
                 lex_get_next_char();
             }
             break;
 
         case '|': 
-            curr_sym=OPERATEUR_BINAIRE_OU;
+            curr_sym=OPERATEUR_BINAIRE_OU_TOKEN;
             lex_get_next_char();
             if(curr_char=='|'){
-                curr_sym=OPERATEUR_OU;
+                curr_sym=OPERATEUR_OU_TOKEN;
                 lex_get_next_char();
             }
             break;
         
         case '&': 
-            curr_sym=OPERATEUR_BINAIRE_ET;
+            curr_sym=OPERATEUR_BINAIRE_ET_TOKEN;
             lex_get_next_char();
             if(curr_char=='&'){
-                curr_sym=OPERATEUR_ET;
+                curr_sym=OPERATEUR_ET_TOKEN;
                 lex_get_next_char();
             }
             break;
 
-        case '^': curr_sym=OPERATEUR_BINAIRE_XOR;lex_get_next_char();break;
-        case '~': curr_sym=OPERATEUR_BINAIRE_NON;lex_get_next_char();break;    
+        case '^': curr_sym=OPERATEUR_BINAIRE_XOR_TOKEN;lex_get_next_char();break;
+        case '~': curr_sym=OPERATEUR_BINAIRE_NON_TOKEN;lex_get_next_char();break;    
        
        
        
        
        
-        case EOF: curr_sym=FIN_TOKEN;break;
+        case EOF: curr_sym=EOF_TOKEN;break;
         case '"':
         case '\'':
-            read_string();
+        curr_sym=CONTINIUE_TOKEN;
+        lex_get_next_char();
+            //read_string();
             break;
-case '{': curr_sym=ACCOLADE_O;lex_get_next_char();break;
-case '}': curr_sym=ACCOLADE_F;lex_get_next_char();break;
+case '{': curr_sym=ACCOLADE_O_TOKEN;lex_get_next_char();break;
+case '}': curr_sym=ACCOLADE_F_TOKEN;lex_get_next_char();break;
+//case "'": curr_sym=ACCOLADE_F_TOKEN;lex_get_next_char();break;
+
 
 
 
@@ -128,11 +132,11 @@ case '}': curr_sym=ACCOLADE_F;lex_get_next_char();break;
 
 
 
-       //case '.': curr_sym=PT_TOKEN;lex_get_next_char();break;
+       //case '.': curr_sym=POINT_TOKEN;lex_get_next_char();break;
 
 
        case '.': 
-            curr_sym=PT_TOKEN;
+            curr_sym=POINT_TOKEN;
             lex_get_next_char();
             //if(isalpha(curr_char)){
                 //read_word();break;
@@ -174,7 +178,7 @@ void read_word(){
     word[i]='\0';
     LEX_CODE code = keyword_code(word);
     if(code==-1) {
-        curr_sym=ID_TOKEN;
+        curr_sym=IDENTIFIANT_TOKEN;
         //add_to_id_array(word);
     }
     else curr_sym=code;
@@ -222,7 +226,7 @@ void analy_lex(FILE *fp){
     lex_get_next_char();
     int i=0;
     int count=0;
-    while(curr_sym!=FIN_TOKEN && curr_sym!=ERROR_TOKEN){
+    while(curr_sym!=EOF_TOKEN && curr_sym!=ERROR_TOKEN){
         next_sym();
         LEX_CODE code1;
         LEX_CODE code2;
@@ -231,50 +235,67 @@ void analy_lex(FILE *fp){
         code1=curr_sym;
 
         
-        if(curr_sym==TAILLE ||curr_sym==SPLIT ){
+        if(curr_sym==TAILLE_TOKEN ||curr_sym==SPLIT_TOKEN ){
             next_sym();
-            symbols[i]=(SYMBOL){ID_TOKEN,current_line};
+            symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
         i++;}
+        
+        //COMMENTAIRE_LIGNE_TOKEN
+        if(curr_sym==CONTINIUE_TOKEN  ){
+            next_sym();
+           }
+
+        if(curr_sym==COMMENTAIRE_LIGNE_TOKEN  ){
+            int i;
+            current_line=i;
+            while (i==current_line)
+            {
+                next_sym();
+            }
+            
+
+            
+           }
 
 
 
 
-        if(curr_sym==PT_TOKEN){
+        if(curr_sym==POINT_TOKEN){
             next_sym();
             code2=curr_sym;
-            if(curr_sym==SPLIT){
+            if(curr_sym==SPLIT_TOKEN){
             
            
-            symbols[i]=(SYMBOL){SPLIT,current_line};
+            symbols[i]=(SYMBOL){SPLIT_TOKEN,current_line};
         i++;
        
             
         }
-            else if(curr_sym==TAILLE){
+            else if(curr_sym==TAILLE_TOKEN){
             
            
-            symbols[i]=(SYMBOL){TAILLE,current_line};
+            symbols[i]=(SYMBOL){TAILLE_TOKEN,current_line};
         i++;
        
             
         }
         
         
-        else if (curr_sym==INVERSER)
+        else if (curr_sym==INVERSER_TOKEN)
         {
             next_sym();
             code3=curr_sym;
-                if(curr_sym==PO_TOKEN){
+                if(curr_sym==PARENTHESE_O_TOKEN){
                     next_sym();
             code4=curr_sym;
-            if(curr_sym==PF_TOKEN){
-            symbols[i]=(SYMBOL){INVERSER,current_line};
+            if(curr_sym==PARENTHESE_F_TOKEN){
+            symbols[i]=(SYMBOL){INVERSER_TOKEN,current_line};
         i++;
             }
             
             else{
              symbols[i]=(SYMBOL){code1,current_line};
-        i++;symbols[i]=(SYMBOL){ID_TOKEN,current_line};
+        i++;symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
         i++;symbols[i]=(SYMBOL){code3,current_line};
         i++;symbols[i]=(SYMBOL){code4,current_line};
         i++;}}
@@ -282,7 +303,7 @@ void analy_lex(FILE *fp){
             
             //for debuging 
         symbols[i]=(SYMBOL){code1,current_line};
-        i++;symbols[i]=(SYMBOL){ID_TOKEN,current_line};
+        i++;symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
         i++;symbols[i]=(SYMBOL){code3,current_line};
         i++;symbols[i]=(SYMBOL){code4,current_line};
         i++;}}
@@ -290,7 +311,7 @@ void analy_lex(FILE *fp){
         
         else{
         symbols[i]=(SYMBOL){code1,current_line};
-        i++;symbols[i]=(SYMBOL){ID_TOKEN,current_line};
+        i++;symbols[i]=(SYMBOL){code2,current_line};
         i++;}
         }
         else{

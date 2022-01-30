@@ -1,25 +1,24 @@
 #ifndef DATA_H
 #define DATA_H
 
-#include <stdio.h>
-#include <stdio.h>
-#include <string.h>
+#include<stdio.h>
+#include<stdio.h>
+#include<string.h>
 
 char curr_char;
 FILE *fp;
 
-typedef enum
-{
-    ID_TOKEN,
+typedef enum {
+    IDENTIFIANT_TOKEN,
     NUM_TOKEN,
     ERROR_TOKEN,
-    PV_TOKEN,
-    PT_TOKEN,
+    POINT_VIRGULE_TOKEN,
+    POINT_TOKEN,
     PLUS_TOKEN,
     MOINS_TOKEN,
     MULT_TOKEN,
     DIV_TOKEN,
-    VIR_TOKEN,
+    VIRGULE_TOKEN,
     AFF_TOKEN,
     INF_TOKEN,
     INFEG_TOKEN,
@@ -27,9 +26,9 @@ typedef enum
     SUP_TOKEN,
     SUPEG_TOKEN,
     DIFF_TOKEN,
-    PO_TOKEN,
-    PF_TOKEN,
-    FIN_TOKEN,
+    PARENTHESE_O_TOKEN,
+    PARENTHESE_F_TOKEN,
+    EOF_TOKEN,
     STRING_TOKEN,
     PROGRAM_TOKEN,
     CONST_TOKEN,
@@ -42,61 +41,59 @@ typedef enum
     READ_TOKEN,
     WRITE_TOKEN,
     VAR_TOKEN,
-    REQUIRE,
-    INVERSER,
-    TAILLE,
-    TYPE_ENTIER,
-    TYPE_BOOLEAN,
-    TYPE_STRING,
-    TYPE_CLE_PUBLIQUE,
-    TYPE_SIGNATURE,
-    TYPE_SIGNATURE_DONNEE,
-    BOOLEAN_LITTERAL,
-
+    REQUIRE_TOKEN,
+    INVERSER_TOKEN,
+    TAILLE_TOKEN,
+    TYPE_ENTIER_TOKEN,
+    TYPE_BOOLEAN_TOKEN,
+    TYPE_STRING_TOKEN,
+    TYPE_CLE_PUBLIQUE_TOKEN,
+    TYPE_SIGNATURE_TOKEN,
+    TYPE_SIGNATURE_DONNEE_TOKEN,
+    BOOLEAN_LITTERAL_TOKEN,
+    
     BYTES_TOKEN,
-    UNITE,
-    PRAGMA,
-    ACCOLADE_F,
-    ACCOLADE_O,
-    CASHSCRIPT,
-    CONTRAT,
-    FONCTION,
-    CROCHET_O,
-    CROCHET_F,
-    OPERATEUR_NON,
-    OPERATEUR_MODULO,
-    OPERATEUR_DIFFERENT,
-    OPERATEUR_BINAIRE_OU,
-    OPERATEUR_OU,
-    OPERATEUR_BINAIRE_ET,
-    OPERATEUR_ET,
-    NOUVEAU,
-    OPERATEUR_BINAIRE_NON,
-    OPERATEUR_BINAIRE_XOR,
-    SPLIT,
-    SINON,
-    COMMENTAIRE_LIGNE,
-    COMMENTAIRE,
-    TX,
-    AGE,
-    TIME
+    UNITE_TOKEN,
+    PRAGMA_TOKEN,
+    ACCOLADE_F_TOKEN,
+    ACCOLADE_O_TOKEN,
+    CONTINIUE_TOKEN,
+CASHSCRIPT_TOKEN,
+CONTRAT_TOKEN,
+FONCTION_TOKEN,
+CROCHET_O_TOKEN,
+CROCHET_F_TOKEN,
+OPERATEUR_NON_TOKEN,
+OPERATEUR_MODULO_TOKEN,
+OPERATEUR_DIFFERENT_TOKEN,
+OPERATEUR_BINAIRE_OU_TOKEN,
+OPERATEUR_OU_TOKEN,
+OPERATEUR_BINAIRE_ET_TOKEN,
+OPERATEUR_ET_TOKEN,NOUVEAU_TOKEN,
+OPERATEUR_BINAIRE_NON_TOKEN,
+OPERATEUR_BINAIRE_XOR_TOKEN,
+SPLIT_TOKEN,
+SINON,
+COMMENTAIRE_LIGNE_TOKEN,
+COMMENTAIRE_TOKEN,
+TX,AGE,TIME
+
+
 
 } LEX_CODE;
 
-extern const char *TOKEN_NAMES[];
-extern const char *TOKEN_ERRORS[];
-typedef struct
-{
+extern const char* TOKEN_NAMES[];
+extern const char* TOKEN_ERRORS[];
+typedef struct {
     LEX_CODE code;
     char keyword[20];
-} LANGUAGE_KEYWORD;
+}LANGUAGE_KEYWORD;
 
 extern const LANGUAGE_KEYWORD pascal_keywords[];
 extern const int number_of_keywords;
 LEX_CODE curr_sym;
 
-typedef struct
-{
+typedef struct {
     LEX_CODE token;
     int line;
 } SYMBOL;
@@ -104,16 +101,14 @@ SYMBOL symbols[255];
 
 LEX_CODE last_keyword;
 
-typedef enum
-{ //Type de symbole
+typedef enum { //Type de symbole
     VAR_TYPE,
     CONST_TYPE,
     PROGRAM_TYPE
 } SYM_TYPE;
 
-typedef struct
-{ //Type de tableau d'identifiants
-    char *value;
+typedef struct { //Type de tableau d'identifiants
+    char* value;
     SYM_TYPE type;
 } IDS_ARR_TYPE;
 
