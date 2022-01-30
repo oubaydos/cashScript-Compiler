@@ -1,8 +1,8 @@
 #ifndef SYN_H
 #define SYN_H
 
-#include"data.h"
-#include"analy_lex.h"
+#include"../lexer/data.h"
+#include"../lexer/analy_lex.h"
 
 void PROGRAMME();
 void DIRECTIVE_PRAGMA();
