@@ -1,14 +1,15 @@
 #ifndef DATA_H
 #define DATA_H
 
-#include<stdio.h>
-#include<stdio.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdio.h>
+#include <string.h>
 
 char curr_char;
 FILE *fp;
 
-typedef enum {
+typedef enum
+{
     ID_TOKEN,
     NUM_TOKEN,
     ERROR_TOKEN,
@@ -51,48 +52,51 @@ typedef enum {
     TYPE_SIGNATURE,
     TYPE_SIGNATURE_DONNEE,
     BOOLEAN_LITTERAL,
-    
+
     BYTES_TOKEN,
     UNITE,
     PRAGMA,
     ACCOLADE_F,
     ACCOLADE_O,
-CASHSCRIPT,
-CONTRAT,
-FONCTION,
-CROCHET_O,
-CROCHET_F,
-OPERATEUR_NON,
-OPERATEUR_MODULO,
-OPERATEUR_DIFFERENT,
-OPERATEUR_BINAIRE_OU,
-OPERATEUR_OU,
-OPERATEUR_BINAIRE_ET,
-OPERATEUR_ET,NOUVEAU,
-OPERATEUR_BINAIRE_NON,
-OPERATEUR_BINAIRE_XOR,
-SPLIT,
-SINON,
-COMMENTAIRE_LIGNE,
-COMMENTAIRE,
-TX,AGE,TIME
-
-
+    CASHSCRIPT,
+    CONTRAT,
+    FONCTION,
+    CROCHET_O,
+    CROCHET_F,
+    OPERATEUR_NON,
+    OPERATEUR_MODULO,
+    OPERATEUR_DIFFERENT,
+    OPERATEUR_BINAIRE_OU,
+    OPERATEUR_OU,
+    OPERATEUR_BINAIRE_ET,
+    OPERATEUR_ET,
+    NOUVEAU,
+    OPERATEUR_BINAIRE_NON,
+    OPERATEUR_BINAIRE_XOR,
+    SPLIT,
+    SINON,
+    COMMENTAIRE_LIGNE,
+    COMMENTAIRE,
+    TX,
+    AGE,
+    TIME
 
 } LEX_CODE;
 
-extern const char* TOKEN_NAMES[];
-extern const char* TOKEN_ERRORS[];
-typedef struct {
+extern const char *TOKEN_NAMES[];
+extern const char *TOKEN_ERRORS[];
+typedef struct
+{
     LEX_CODE code;
     char keyword[20];
-}LANGUAGE_KEYWORD;
+} LANGUAGE_KEYWORD;
 
 extern const LANGUAGE_KEYWORD pascal_keywords[];
 extern const int number_of_keywords;
 LEX_CODE curr_sym;
 
-typedef struct {
+typedef struct
+{
     LEX_CODE token;
     int line;
 } SYMBOL;
@@ -100,14 +104,16 @@ SYMBOL symbols[255];
 
 LEX_CODE last_keyword;
 
-typedef enum { //Type de symbole
+typedef enum
+{ //Type de symbole
     VAR_TYPE,
     CONST_TYPE,
     PROGRAM_TYPE
 } SYM_TYPE;
 
-typedef struct { //Type de tableau d'identifiants
-    char* value;
+typedef struct
+{ //Type de tableau d'identifiants
+    char *value;
     SYM_TYPE type;
 } IDS_ARR_TYPE;
 
