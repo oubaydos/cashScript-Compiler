@@ -1,9 +1,9 @@
-#include "data.h"
+#include"data.h"
 
-const char *TOKEN_NAMES[] = {
-
-    "IDENTIFIANT_TOKEN",
-    "NOMBRE_LITTERAL_TOKEN",
+const char* TOKEN_NAMES[]={
+    
+     "IDENTIFIANT_TOKEN",
+    "NUM_TOKEN",
     "ERROR_TOKEN",
     "POINT_VIRGULE_TOKEN",
     "POINT_TOKEN",
@@ -44,36 +44,39 @@ const char *TOKEN_NAMES[] = {
     "TYPE_SIGNATURE_TOKEN",
     "TYPE_SIGNATURE_DONNEE_TOKEN",
     "BOOLEAN_LITTERAL_TOKEN",
-
+    
     "BYTES_TOKEN",
     "UNITE_TOKEN",
     "PRAGMA_TOKEN",
     "ACCOLADE_F_TOKEN",
     "ACCOLADE_O_TOKEN",
     "CONTINIUE_TOKEN",
-    "CASHSCRIPT_TOKEN",
-    "CONTRAT_TOKEN",
-    "FONCTION_TOKEN",
-    "CROCHET_O_TOKEN",
-    "CROCHET_F_TOKEN",
-    "OPERATEUR_NON_TOKEN",
-    "OPERATEUR_MODULO_TOKEN",
-    "OPERATEUR_DIFFERENT_TOKEN",
-    "OPERATEUR_BINAIRE_OU_TOKEN",
-    "OPERATEUR_OU_TOKEN",
-    "OPERATEUR_BINAIRE_ET_TOKEN",
-    "OPERATEUR_ET_TOKEN", "NOUVEAU_TOKEN",
-    "OPERATEUR_BINAIRE_NON_TOKEN",
-    "OPERATEUR_BINAIRE_XOR_TOKEN",
-    "SPLIT_TOKEN",
-    "SINON",
-    "COMMENTAIRE_LIGNE_TOKEN",
-    "COMMENTAIRE_TOKEN",
-    "TX", "AGE", "TIME"
+"CASHSCRIPT_TOKEN",
+"CONTRAT_TOKEN",
+"FONCTION_TOKEN",
+"CROCHET_O_TOKEN",
+"CROCHET_F_TOKEN",
+"OPERATEUR_NON_TOKEN",
+"OPERATEUR_MODULO_TOKEN",
+"OPERATEUR_DIFFERENT_TOKEN",
+"OPERATEUR_BINAIRE_OU_TOKEN",
+"OPERATEUR_OU_TOKEN",
+"OPERATEUR_BINAIRE_ET_TOKEN",
+"OPERATEUR_ET_TOKEN","NOUVEAU_TOKEN",
+"OPERATEUR_BINAIRE_NON_TOKEN",
+"OPERATEUR_BINAIRE_XOR_TOKEN",
+"SPLIT_TOKEN",
+"SINON",
+"COMMENTAIRE_LIGNE_TOKEN",
+"COMMENTAIRE_TOKEN_O",
+"COMMENTAIRE_TOKEN_F",
+"TX","AGE","TIME"
+
+    
+    
 
 };
-const char *TOKEN_ERRORS[] = {
-    //TODO:
+const char* TOKEN_ERRORS[]={//TODO: 
     "ID_ERROR",
     "NUM_ERROR",
     "LEX_ERROR",
@@ -108,54 +111,62 @@ const char *TOKEN_ERRORS[] = {
     "VAR_ERROR",
 
 };
-const LANGUAGE_KEYWORD pascal_keywords[] = {
-    {PROGRAM_TOKEN, "program"},
-    {CONST_TOKEN, "const"},
-    {BEGIN_TOKEN, "begin"},
-    {END_TOKEN, "end"},
-    {IF_TOKEN, "if"},
-    {THEN_TOKEN, "then"},
-    {WHILE_TOKEN, "while"},
-    {DO_TOKEN, "do"},
-    {READ_TOKEN, "read"},
-    {WRITE_TOKEN, "write"},
-    {VAR_TOKEN, "var"},
-    {REQUIRE_TOKEN, "require"},
-    {INVERSER_TOKEN, "reverse"},
-    {TAILLE_TOKEN, "length"},
-    {TYPE_ENTIER_TOKEN, "int"},
-    {TYPE_BOOLEAN_TOKEN, "bool"},
-    {TYPE_STRING_TOKEN, "string"},
-    {TYPE_CLE_PUBLIQUE_TOKEN, "pubkey"},
-    {TYPE_SIGNATURE_TOKEN, "sig"},
-    {TYPE_SIGNATURE_DONNEE_TOKEN, "datasig"},
-    {BOOLEAN_LITTERAL_TOKEN, "true"},
-    {BYTES_TOKEN, "bytes"},
-    {UNITE_TOKEN, "satoshis"},
-    {PRAGMA_TOKEN, "pragma"},
+const LANGUAGE_KEYWORD pascal_keywords[]={
+    {PROGRAM_TOKEN,"program"},
+    {CONST_TOKEN,"const"},
+    {BEGIN_TOKEN,"begin"},
+    {END_TOKEN,"end"},
+    {IF_TOKEN,"if"},
+    {THEN_TOKEN,"then"},
+    {WHILE_TOKEN,"while"},
+    {DO_TOKEN,"do"},
+    {READ_TOKEN,"read"},
+    {WRITE_TOKEN,"write"},
+    {VAR_TOKEN,"var"},
+    {REQUIRE_TOKEN,"require"},
+    {INVERSER_TOKEN,"reverse"},
+    {TAILLE_TOKEN,"length"},
+    {TYPE_ENTIER_TOKEN,"int"},
+    {TYPE_BOOLEAN_TOKEN,"bool"},
+    {TYPE_STRING_TOKEN,"string"},
+    {TYPE_CLE_PUBLIQUE_TOKEN,"pubkey"},
+    {TYPE_SIGNATURE_TOKEN,"sig"},
+    {TYPE_SIGNATURE_DONNEE_TOKEN,"datasig"},
+    {BOOLEAN_LITTERAL_TOKEN,"true"},
+    {BYTES_TOKEN,"bytes"},
+    {UNITE_TOKEN,"satoshis"},
+    {PRAGMA_TOKEN,"pragma"},
 
-    {CASHSCRIPT_TOKEN, "cashscript"},
-    {CONTRAT_TOKEN, "contract"},
-    {FONCTION_TOKEN, "function"},
+    {CASHSCRIPT_TOKEN,"cashscript"},
+    {CONTRAT_TOKEN,"contract"},
+    {FONCTION_TOKEN,"function"},
+    
+    {BOOLEAN_LITTERAL_TOKEN,"false"},
+    {NOUVEAU_TOKEN,"new"},
+    {SPLIT_TOKEN,"split"},
+    {SINON,"else"},
+    {TX,"tx"},
+    {AGE,"age"},
+    {TIME,"time"},
 
-    {BOOLEAN_LITTERAL_TOKEN, "false"},
-    {NOUVEAU_TOKEN, "new"},
-    {SPLIT_TOKEN, "split"},
-    {SINON, "else"},
-    {TX, "tx"},
-    {AGE, "age"},
-    {TIME, "time"},
 
-    {UNITE_TOKEN, "sats"},
-    {UNITE_TOKEN, "finney"},
-    {UNITE_TOKEN, "bits"},
-    {UNITE_TOKEN, "bitcoin"},
-    {UNITE_TOKEN, "seconds"},
-    {UNITE_TOKEN, "minutes"},
-    {UNITE_TOKEN, "hours"},
-    {UNITE_TOKEN, "days"},
-    {UNITE_TOKEN, "weeks"},
-    {SINON, "else"},
+
+
+
+    
+    {UNITE_TOKEN,"sats"},
+    {UNITE_TOKEN,"finney"},
+    {UNITE_TOKEN,"bits"},
+    {UNITE_TOKEN,"bitcoin"},
+    {UNITE_TOKEN,"seconds"},
+    {UNITE_TOKEN,"minutes"},
+    {UNITE_TOKEN,"hours"},
+    {UNITE_TOKEN,"days"},
+    {UNITE_TOKEN,"weeks"},
+    {SINON,"else"},
+    
+    
+
 
 };
-const int number_of_keywords = sizeof(pascal_keywords) / sizeof(LANGUAGE_KEYWORD);
+const int number_of_keywords = sizeof(pascal_keywords)/sizeof(LANGUAGE_KEYWORD);
