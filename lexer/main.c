@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
   //   return -1;
   // }else{
   //   fp = fopen(argv[1],"r");
-  fp = fopen("../tests/test1.txt", "r"); //for debuging
+  fp = fopen("../tests/test1.cash", "r"); //for debuging
   if (fp == NULL)
   {
     perror("Error in opening file");
