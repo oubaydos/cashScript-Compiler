@@ -1,331 +1,413 @@
-#include"analy_lex.h"
+#include "analy_lex.h"
 
-
-void lex_get_next_char(){
+void lex_get_next_char()
+{
     curr_char = fgetc(fp);
 }
 
-void next_sym(){
+void next_sym()
+{
     skip_white_spaces();
-    switch(curr_char){
-        case '+': curr_sym=PLUS_TOKEN;lex_get_next_char();break;
-        case '-': curr_sym=MOINS_TOKEN;lex_get_next_char();break;
-        //case '*': curr_sym=MULT_TOKEN;lex_get_next_char();break;
-        //case '/': curr_sym=DIV_TOKEN;lex_get_next_char();break;
-        case ';': curr_sym=POINT_VIRGULE_TOKEN;lex_get_next_char();break;
-        case ',': curr_sym=VIRGULE_TOKEN;lex_get_next_char();break;
-       
-        case ':': 
-            lex_get_next_char();
-            if(curr_char=='='){
-                curr_sym=AFF_TOKEN;lex_get_next_char();break;
-            }else{
-                curr_sym=ERROR_TOKEN;return;
-            }
-            break;
-        case '<': 
-            curr_sym=INF_TOKEN;
-            lex_get_next_char();
-            if(curr_char=='='){
-                curr_sym=INFEG_TOKEN;
-                lex_get_next_char();
-            }
-            break;
-        case '>': 
-            curr_sym=SUP_TOKEN;
-            lex_get_next_char();
-            if(curr_char=='='){
-                curr_sym=SUPEG_TOKEN;
-                lex_get_next_char();
-            }
-            break;
-        case '(': curr_sym=PARENTHESE_O_TOKEN;lex_get_next_char();break;
-        case ')': curr_sym=PARENTHESE_F_TOKEN;lex_get_next_char();break;
-        case '[': curr_sym=CROCHET_O_TOKEN;lex_get_next_char();break;
-        case ']': curr_sym=CROCHET_F_TOKEN;lex_get_next_char();break;
-        //case '!': curr_sym=OPERATEUR_NON;lex_get_next_char();break;
-        case '%': curr_sym=OPERATEUR_MODULO_TOKEN;lex_get_next_char();break;
-       case '!': 
-            curr_sym=OPERATEUR_NON_TOKEN;
-            lex_get_next_char();
-            if(curr_char=='='){
-                curr_sym=OPERATEUR_DIFFERENT_TOKEN;
-                lex_get_next_char();
-            }
-            break;
-
-
-        case '*': 
-            curr_sym=MULT_TOKEN;
-            lex_get_next_char();
-            if(curr_char=='/'){
-                curr_sym=COMMENTAIRE_TOKEN;
-                lex_get_next_char();
-            }
-            break;    
-        
-
-        case '/': 
-            curr_sym=DIV_TOKEN;
-            lex_get_next_char();
-            if(curr_char=='/'){
-                curr_sym=COMMENTAIRE_LIGNE_TOKEN;
-                lex_get_next_char();
-            }
-            if(curr_char=='*'){
-                curr_sym=COMMENTAIRE_TOKEN;
-                lex_get_next_char();
-            }
-            break;
-
-        case '|': 
-            curr_sym=OPERATEUR_BINAIRE_OU_TOKEN;
-            lex_get_next_char();
-            if(curr_char=='|'){
-                curr_sym=OPERATEUR_OU_TOKEN;
-                lex_get_next_char();
-            }
-            break;
-        
-        case '&': 
-            curr_sym=OPERATEUR_BINAIRE_ET_TOKEN;
-            lex_get_next_char();
-            if(curr_char=='&'){
-                curr_sym=OPERATEUR_ET_TOKEN;
-                lex_get_next_char();
-            }
-            break;
-
-        case '^': curr_sym=OPERATEUR_BINAIRE_XOR_TOKEN;lex_get_next_char();break;
-        case '~': curr_sym=OPERATEUR_BINAIRE_NON_TOKEN;lex_get_next_char();break;    
-       
-       
-       
-       
-       
-        case EOF: curr_sym=EOF_TOKEN;break;
-        case '"':
-        case '\'':
-        curr_sym=CONTINIUE_TOKEN;
+    switch (curr_char)
+    {
+    case '+':
+        curr_sym = PLUS_TOKEN;
         lex_get_next_char();
-            //read_string();
-            break;
-case '{': curr_sym=ACCOLADE_O_TOKEN;lex_get_next_char();break;
-case '}': curr_sym=ACCOLADE_F_TOKEN;lex_get_next_char();break;
-//case "'": curr_sym=ACCOLADE_F_TOKEN;lex_get_next_char();break;
+        break;
+    case '-':
+        curr_sym = MOINS_TOKEN;
+        lex_get_next_char();
+        break;
+    //case '*': curr_sym=MULT_TOKEN;lex_get_next_char();break;
+    //case '/': curr_sym=DIV_TOKEN;lex_get_next_char();break;
+    case ';':
+        curr_sym = POINT_VIRGULE_TOKEN;
+        lex_get_next_char();
+        break;
+    case ',':
+        curr_sym = VIRGULE_TOKEN;
+        lex_get_next_char();
+        break;
 
-
-
-
-
-        //case '{':
-            //skip_comment();
-            //break;
-        case '=': 
-            curr_sym=EG_TOKEN;
+    case ':':
+        lex_get_next_char();
+        if (curr_char == '=')
+        {
+            curr_sym = AFF_TOKEN;
             lex_get_next_char();
-            if(curr_char=='='){
-                curr_sym=EG_TOKEN;
-                lex_get_next_char();
-            }
             break;
-
-
-
-       //case '.': curr_sym=POINT_TOKEN;lex_get_next_char();break;
-
-
-       case '.': 
-            curr_sym=POINT_TOKEN;
+        }
+        else
+        {
+            curr_sym = ERROR_TOKEN;
+            return;
+        }
+        break;
+    case '<':
+        curr_sym = INF_TOKEN;
+        lex_get_next_char();
+        if (curr_char == '=')
+        {
+            curr_sym = INFEG_TOKEN;
             lex_get_next_char();
-            //if(isalpha(curr_char)){
-                //read_word();break;
-            //}
+        }
+        break;
+    case '>':
+        curr_sym = SUP_TOKEN;
+        lex_get_next_char();
+        if (curr_char == '=')
+        {
+            curr_sym = SUPEG_TOKEN;
+            lex_get_next_char();
+        }
+        break;
+    case '(':
+        curr_sym = PARENTHESE_O_TOKEN;
+        lex_get_next_char();
+        break;
+    case ')':
+        curr_sym = PARENTHESE_F_TOKEN;
+        lex_get_next_char();
+        break;
+    case '[':
+        curr_sym = CROCHET_O_TOKEN;
+        lex_get_next_char();
+        break;
+    case ']':
+        curr_sym = CROCHET_F_TOKEN;
+        lex_get_next_char();
+        break;
+    //case '!': curr_sym=OPERATEUR_NON;lex_get_next_char();break;
+    case '%':
+        curr_sym = OPERATEUR_MODULO_TOKEN;
+        lex_get_next_char();
+        break;
+    case '!':
+        curr_sym = OPERATEUR_NON_TOKEN;
+        lex_get_next_char();
+        if (curr_char == '=')
+        {
+            curr_sym = OPERATEUR_DIFFERENT_TOKEN;
+            lex_get_next_char();
+        }
+        break;
+
+    case '*':
+        curr_sym = MULT_TOKEN;
+        lex_get_next_char();
+        if (curr_char == '/')
+        {
+            curr_sym = COMMENTAIRE_TOKEN;
+            lex_get_next_char();
+        }
+        break;
+
+    case '/':
+        curr_sym = DIV_TOKEN;
+        lex_get_next_char();
+        if (curr_char == '/')
+        {
+            curr_sym = COMMENTAIRE_LIGNE_TOKEN;
+            lex_get_next_char();
+        }
+        if (curr_char == '*')
+        {
+            curr_sym = COMMENTAIRE_TOKEN;
+            lex_get_next_char();
+        }
+        break;
+
+    case '|':
+        curr_sym = OPERATEUR_BINAIRE_OU_TOKEN;
+        lex_get_next_char();
+        if (curr_char == '|')
+        {
+            curr_sym = OPERATEUR_OU_TOKEN;
+            lex_get_next_char();
+        }
+        break;
+
+    case '&':
+        curr_sym = OPERATEUR_BINAIRE_ET_TOKEN;
+        lex_get_next_char();
+        if (curr_char == '&')
+        {
+            curr_sym = OPERATEUR_ET_TOKEN;
+            lex_get_next_char();
+        }
+        break;
+
+    case '^':
+        curr_sym = OPERATEUR_BINAIRE_XOR_TOKEN;
+        lex_get_next_char();
+        break;
+    case '~':
+        curr_sym = OPERATEUR_BINAIRE_NON_TOKEN;
+        lex_get_next_char();
+        break;
+
+    case EOF:
+        curr_sym = EOF_TOKEN;
+        break;
+    case '"':
+    case '\'':
+        curr_sym = CONTINIUE_TOKEN;
+        lex_get_next_char();
+        //read_string();
+        break;
+    case '{':
+        curr_sym = ACCOLADE_O_TOKEN;
+        lex_get_next_char();
+        break;
+    case '}':
+        curr_sym = ACCOLADE_F_TOKEN;
+        lex_get_next_char();
+        break;
+        //case "'": curr_sym=ACCOLADE_F_TOKEN;lex_get_next_char();break;
+
+    //case '{':
+    //skip_comment();
+    //break;
+    case '=':
+        curr_sym = EG_TOKEN;
+        lex_get_next_char();
+        if (curr_char == '=')
+        {
+            curr_sym = EG_TOKEN;
+            lex_get_next_char();
+        }
+        break;
+
+        //case '.': curr_sym=POINT_TOKEN;lex_get_next_char();break;
+
+    case '.':
+        curr_sym = POINT_TOKEN;
+        lex_get_next_char();
+        //if(isalpha(curr_char)){
+        //read_word();break;
+        //}
+        break;
+
+    default:
+        if (isalpha(curr_char))
+        {
+            read_word();
             break;
+        }
+        else if (isdigit(curr_char))
+        {
+            read_number();
+            break;
+        }
+        else
+        {
 
+            printf("%d\n", curr_char);
 
-       default:
-            if (isalpha(curr_char)){
-                read_word();break;
-            }else if (isdigit(curr_char)){
-                read_number();break;
-            }else{
-                
-                    printf("%d\n",curr_char);
-                
-                curr_sym=ERROR_TOKEN;return;
-            }
+            curr_sym = ERROR_TOKEN;
+            return;
+        }
     }
 }
-void print_token(LEX_CODE curr_sym){
-    printf("%s line %d\n",TOKEN_NAMES[curr_sym],current_line);
+void print_token(LEX_CODE curr_sym)
+{
+    printf("%s line %d\n", TOKEN_NAMES[curr_sym], current_line);
 }
 
-void read_number(){
-    while(isdigit(curr_char)){
+void read_number()
+{
+    while (isdigit(curr_char))
+    {
         lex_get_next_char();
     }
-    curr_sym=NUM_TOKEN;
+    curr_sym = NOMBRE_LITTERAL_TOKEN;
 }
-void read_word(){
+void read_word()
+{
     char word[100];
-    int i=0;
-    while(isalnum(curr_char)||curr_char=='_'){
-        word[i]=curr_char;
+    int i = 0;
+    while (isalnum(curr_char) || curr_char == '_')
+    {
+        word[i] = curr_char;
         i++;
         lex_get_next_char();
     }
-    word[i]='\0';
+    word[i] = '\0';
     LEX_CODE code = keyword_code(word);
-    if(code==-1) {
-        curr_sym=IDENTIFIANT_TOKEN;
+    if (code == -1)
+    {
+        curr_sym = IDENTIFIANT_TOKEN;
         //add_to_id_array(word);
     }
-    else curr_sym=code;
+    else
+        curr_sym = code;
 }
-void read_string(){
-    char quote=curr_char;
+void read_string()
+{
+    char quote = curr_char;
     lex_get_next_char();
-    while(curr_char!=quote && curr_char!=EOF){
+    while (curr_char != quote && curr_char != EOF)
+    {
         lex_get_next_char();
     }
-    if(curr_char==quote){
-        curr_sym=STRING_TOKEN;
+    if (curr_char == quote)
+    {
+        curr_sym = STRING_TOKEN;
     }
     lex_get_next_char();
 }
-void skip_white_spaces(){
-    while(curr_char==' '||curr_char=='\t'||curr_char=='\n'||curr_char=='\r'){
-        if(curr_char=='\n') current_line++;
+void skip_white_spaces()
+{
+    while (curr_char == ' ' || curr_char == '\t' || curr_char == '\n' || curr_char == '\r')
+    {
+        if (curr_char == '\n')
+            current_line++;
         lex_get_next_char();
     }
 }
-void skip_comment(){
+void skip_comment()
+{
     lex_get_next_char();
-    while(curr_char!='}' && curr_char!=EOF){
+    while (curr_char != '}' && curr_char != EOF)
+    {
         lex_get_next_char();
     }
-    if(curr_char=='}'){
+    if (curr_char == '}')
+    {
         lex_get_next_char();
     }
     next_sym();
 }
-LEX_CODE keyword_code(char* word){
+LEX_CODE keyword_code(char *word)
+{
     int i;
-    for(i=0;i<number_of_keywords;i++){
-        if(strcmp(word,pascal_keywords[i].keyword)==0){
+    for (i = 0; i < number_of_keywords; i++)
+    {
+        if (strcmp(word, pascal_keywords[i].keyword) == 0)
+        {
             return pascal_keywords[i].code;
         }
     }
     return -1;
 }
-void analy_lex(FILE *fp){
+void analy_lex(FILE *fp)
+{
     current_line = 1;
     //ids_arr_cursor = 0;
     last_keyword = -1;
     lex_get_next_char();
-    int i=0;
-    int count=0;
-    while(curr_sym!=EOF_TOKEN && curr_sym!=ERROR_TOKEN){
+    int i = 0;
+    int count = 0;
+    while (curr_sym != EOF_TOKEN && curr_sym != ERROR_TOKEN)
+    {
         next_sym();
         LEX_CODE code1;
         LEX_CODE code2;
         LEX_CODE code3;
         LEX_CODE code4;
-        code1=curr_sym;
+        code1 = curr_sym;
 
-        
-        if(curr_sym==TAILLE_TOKEN ||curr_sym==SPLIT_TOKEN ){
+        if (curr_sym == TAILLE_TOKEN || curr_sym == SPLIT_TOKEN)
+        {
             next_sym();
-            symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
-        i++;}
-        
+            symbols[i] = (SYMBOL){IDENTIFIANT_TOKEN, current_line};
+            i++;
+        }
+
         //COMMENTAIRE_LIGNE_TOKEN
-        if(curr_sym==CONTINIUE_TOKEN  ){
+        if (curr_sym == CONTINIUE_TOKEN)
+        {
             next_sym();
-           }
+        }
 
-        if(curr_sym==COMMENTAIRE_LIGNE_TOKEN  ){
+        if (curr_sym == COMMENTAIRE_LIGNE_TOKEN)
+        {
             int i;
-            current_line=i;
-            while (i==current_line)
+            current_line = i;
+            while (i == current_line)
             {
                 next_sym();
             }
-            
-
-            
-           }
-
-
-
-
-        if(curr_sym==POINT_TOKEN){
-            next_sym();
-            code2=curr_sym;
-            if(curr_sym==SPLIT_TOKEN){
-            
-           
-            symbols[i]=(SYMBOL){SPLIT_TOKEN,current_line};
-        i++;
-       
-            
         }
-            else if(curr_sym==TAILLE_TOKEN){
-            
-           
-            symbols[i]=(SYMBOL){TAILLE_TOKEN,current_line};
-        i++;
-       
-            
-        }
-        
-        
-        else if (curr_sym==INVERSER_TOKEN)
+
+        if (curr_sym == POINT_TOKEN)
         {
             next_sym();
-            code3=curr_sym;
-                if(curr_sym==PARENTHESE_O_TOKEN){
-                    next_sym();
-            code4=curr_sym;
-            if(curr_sym==PARENTHESE_F_TOKEN){
-            symbols[i]=(SYMBOL){INVERSER_TOKEN,current_line};
-        i++;
+            code2 = curr_sym;
+            if (curr_sym == SPLIT_TOKEN)
+            {
+
+                symbols[i] = (SYMBOL){SPLIT_TOKEN, current_line};
+                i++;
             }
-            
-            else{
-             symbols[i]=(SYMBOL){code1,current_line};
-        i++;symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
-        i++;symbols[i]=(SYMBOL){code3,current_line};
-        i++;symbols[i]=(SYMBOL){code4,current_line};
-        i++;}}
-            else{
-            
-            //for debuging 
-        symbols[i]=(SYMBOL){code1,current_line};
-        i++;symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
-        i++;symbols[i]=(SYMBOL){code3,current_line};
-        i++;symbols[i]=(SYMBOL){code4,current_line};
-        i++;}}
-        
-        
-        else{
-        symbols[i]=(SYMBOL){code1,current_line};
-        i++;symbols[i]=(SYMBOL){code2,current_line};
-        i++;}
+            else if (curr_sym == TAILLE_TOKEN)
+            {
+
+                symbols[i] = (SYMBOL){TAILLE_TOKEN, current_line};
+                i++;
+            }
+
+            else if (curr_sym == INVERSER_TOKEN)
+            {
+                next_sym();
+                code3 = curr_sym;
+                if (curr_sym == PARENTHESE_O_TOKEN)
+                {
+                    next_sym();
+                    code4 = curr_sym;
+                    if (curr_sym == PARENTHESE_F_TOKEN)
+                    {
+                        symbols[i] = (SYMBOL){INVERSER_TOKEN, current_line};
+                        i++;
+                    }
+
+                    else
+                    {
+                        symbols[i] = (SYMBOL){code1, current_line};
+                        i++;
+                        symbols[i] = (SYMBOL){IDENTIFIANT_TOKEN, current_line};
+                        i++;
+                        symbols[i] = (SYMBOL){code3, current_line};
+                        i++;
+                        symbols[i] = (SYMBOL){code4, current_line};
+                        i++;
+                    }
+                }
+                else
+                {
+
+                    //for debuging
+                    symbols[i] = (SYMBOL){code1, current_line};
+                    i++;
+                    symbols[i] = (SYMBOL){IDENTIFIANT_TOKEN, current_line};
+                    i++;
+                    symbols[i] = (SYMBOL){code3, current_line};
+                    i++;
+                    symbols[i] = (SYMBOL){code4, current_line};
+                    i++;
+                }
+            }
+
+            else
+            {
+                symbols[i] = (SYMBOL){code1, current_line};
+                i++;
+                symbols[i] = (SYMBOL){code2, current_line};
+                i++;
+            }
         }
-        else{
-         //for debuging 
-        symbols[i]=(SYMBOL){curr_sym,current_line};
-        i++;}
+        else
+        {
+            //for debuging
+            symbols[i] = (SYMBOL){curr_sym, current_line};
+            i++;
+        }
     }
-   
-int j=0;
-for(j;j<i;j++){
 
-    printf("\n%s\n ",TOKEN_NAMES[symbols[j].token]);
+    int j = 0;
+    for (j; j < i; j++)
+    {
 
-}
-   
-     
+        printf("\n%s\n ", TOKEN_NAMES[symbols[j].token]);
+    }
 }

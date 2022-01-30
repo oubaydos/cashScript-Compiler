@@ -1,16 +1,17 @@
 #ifndef DATA_H
 #define DATA_H
 
-#include<stdio.h>
-#include<stdio.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdio.h>
+#include <string.h>
 
 char curr_char;
 FILE *fp;
 
-typedef enum {
+typedef enum
+{
     IDENTIFIANT_TOKEN,
-    NUM_TOKEN,
+    NOMBRE_LITTERAL_TOKEN,
     ERROR_TOKEN,
     POINT_VIRGULE_TOKEN,
     POINT_TOKEN,
@@ -51,49 +52,52 @@ typedef enum {
     TYPE_SIGNATURE_TOKEN,
     TYPE_SIGNATURE_DONNEE_TOKEN,
     BOOLEAN_LITTERAL_TOKEN,
-    
+
     BYTES_TOKEN,
     UNITE_TOKEN,
     PRAGMA_TOKEN,
     ACCOLADE_F_TOKEN,
     ACCOLADE_O_TOKEN,
     CONTINIUE_TOKEN,
-CASHSCRIPT_TOKEN,
-CONTRAT_TOKEN,
-FONCTION_TOKEN,
-CROCHET_O_TOKEN,
-CROCHET_F_TOKEN,
-OPERATEUR_NON_TOKEN,
-OPERATEUR_MODULO_TOKEN,
-OPERATEUR_DIFFERENT_TOKEN,
-OPERATEUR_BINAIRE_OU_TOKEN,
-OPERATEUR_OU_TOKEN,
-OPERATEUR_BINAIRE_ET_TOKEN,
-OPERATEUR_ET_TOKEN,NOUVEAU_TOKEN,
-OPERATEUR_BINAIRE_NON_TOKEN,
-OPERATEUR_BINAIRE_XOR_TOKEN,
-SPLIT_TOKEN,
-SINON,
-COMMENTAIRE_LIGNE_TOKEN,
-COMMENTAIRE_TOKEN,
-TX,AGE,TIME
-
-
+    CASHSCRIPT_TOKEN,
+    CONTRAT_TOKEN,
+    FONCTION_TOKEN,
+    CROCHET_O_TOKEN,
+    CROCHET_F_TOKEN,
+    OPERATEUR_NON_TOKEN,
+    OPERATEUR_MODULO_TOKEN,
+    OPERATEUR_DIFFERENT_TOKEN,
+    OPERATEUR_BINAIRE_OU_TOKEN,
+    OPERATEUR_OU_TOKEN,
+    OPERATEUR_BINAIRE_ET_TOKEN,
+    OPERATEUR_ET_TOKEN,
+    NOUVEAU_TOKEN,
+    OPERATEUR_BINAIRE_NON_TOKEN,
+    OPERATEUR_BINAIRE_XOR_TOKEN,
+    SPLIT_TOKEN,
+    SINON,
+    COMMENTAIRE_LIGNE_TOKEN,
+    COMMENTAIRE_TOKEN,
+    TX,
+    AGE,
+    TIME
 
 } LEX_CODE;
 
-extern const char* TOKEN_NAMES[];
-extern const char* TOKEN_ERRORS[];
-typedef struct {
+extern const char *TOKEN_NAMES[];
+extern const char *TOKEN_ERRORS[];
+typedef struct
+{
     LEX_CODE code;
     char keyword[20];
-}LANGUAGE_KEYWORD;
+} LANGUAGE_KEYWORD;
 
 extern const LANGUAGE_KEYWORD pascal_keywords[];
 extern const int number_of_keywords;
 LEX_CODE curr_sym;
 
-typedef struct {
+typedef struct
+{
     LEX_CODE token;
     int line;
 } SYMBOL;
@@ -101,14 +105,16 @@ SYMBOL symbols[255];
 
 LEX_CODE last_keyword;
 
-typedef enum { //Type de symbole
+typedef enum
+{ //Type de symbole
     VAR_TYPE,
     CONST_TYPE,
     PROGRAM_TYPE
 } SYM_TYPE;
 
-typedef struct { //Type de tableau d'identifiants
-    char* value;
+typedef struct
+{ //Type de tableau d'identifiants
+    char *value;
     SYM_TYPE type;
 } IDS_ARR_TYPE;
 
