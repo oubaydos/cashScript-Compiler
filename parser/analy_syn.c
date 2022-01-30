@@ -519,8 +519,13 @@ void LITTERAL(){
 
 void NOMBRE_LITTERAL(){
     test_sym(NOMBRE_LITTERAL_TOKEN);
-    if(symbols[cursor].token == UNITE_TOKEN){
-        test_sym(UNITE_TOKEN);
+    if(symbols[cursor].token == SATOSHIS_TOKEN || symbols[cursor].token == SATS_TOKEN
+    || symbols[cursor].token == FINNEY_TOKEN || symbols[cursor].token == BITS_TOKEN
+    || symbols[cursor].token == BITCOIN_TOKEN || symbols[cursor].token == SECONDS_TOKEN
+    || symbols[cursor].token == MINUTES_TOKEN || symbols[cursor].token == HOURS_TOKEN
+    || symbols[cursor].token == DAYS_TOKEN || symbols[cursor].token == WEEKS_TOKEN
+    ){
+        UNITE_TOKEN();
     }
 }
 
@@ -667,4 +672,11 @@ void CHAMP_AVANT_IMAGE_TOKEN(){
             break;
     }
 }
+}
+
+void BYTES(){
+    test_sym(BYTES_TOKEN);
+    if(symbols[cursor].token==NOMBRE_LITTERAL_TOKEN){
+        test_sym(NOMBRE_LITTERAL_TOKEN);
+    }
 }
