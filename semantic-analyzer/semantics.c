@@ -49,45 +49,7 @@ bool hasAllPositiveNumbers(int number1, int number2, int number3)
 {
     return number1 >= 0 && number2 >= 0 && number3 >= 0;
 }
-// i should get a table containing all keywords and their corresponding token and value :
-// for example : int a = 5 ; i should get
-// a : TYPE_ENTIER_TOKEN
-// and if the expression uses operations in invalid combinations, exit with an error
 
-// bool areString(LANGUAGE_KEYWORD firstOperand, LANGUAGE_KEYWORD secondOperand)
-// {
-//     return ((firstOperand.code == TYPE_STRING_TOKEN || firstOperand.code == STRING_LITTERAL_TOKEN) && (secondOperand.code == TYPE_STRING_TOKEN || secondOperand.code == STRING_LITTERAL_TOKEN));
-// }
-// bool areNumbers(LANGUAGE_KEYWORD firstOperand, LANGUAGE_KEYWORD secondOperand)
-// {
-//     return (
-//         (firstOperand.code == TYPE_ENTIER_TOKEN || firstOperand.code == NOMBRE_LITTERAL_TOKEN) && (secondOperand.code == TYPE_ENTIER_TOKEN || secondOperand.code == NOMBRE_LITTERAL_TOKEN));
-// }
-// bool plusOperationIsValid(LANGUAGE_KEYWORD firstOperand, LANGUAGE_KEYWORD secondOperand)
-// {
-//     return areNumbers(firstOperand, secondOperand) || areString(firstOperand, secondOperand);
-// }
-// void assertPlusOperationIsValid(LANGUAGE_KEYWORD firstOperand, LANGUAGE_KEYWORD secondOperand)
-// {
-//     if (!plusOperationIsValid(firstOperand, secondOperand))
-//     {
-//         printf("operation + invalide pour les valeurs %s et %s ", firstOperand.keyword, secondOperand.keyword);
-//         exit(1);
-//     }
-// }
-// bool otherArithmeticAndLogicalOperationAreValid(LANGUAGE_KEYWORD firstOperand, LANGUAGE_KEYWORD secondOperand)
-// {
-//     return areNumbers(firstOperand, secondOperand);
-// }
-// void assertOtherArithmeticAndLogicalOperationAreValid(LANGUAGE_KEYWORD firstOperand, LANGUAGE_KEYWORD secondOperand)
-// {
-//     if (!otherArithmeticAndLogicalOperationAreValid(firstOperand, secondOperand))
-//     {
-//         printf("operation invalide pour les valeurs %s et %s ", firstOperand.keyword, secondOperand.keyword);
-//         exit(1);
-//     }
-// }
-// reverse length split
 bool stringOperationsAreValid(LANGUAGE_KEYWORD firstOperand)
 {
     return firstOperand.code == IDENTIFIANT_TOKEN || firstOperand.code == STRING_VALEUR_TOKEN;
@@ -111,33 +73,3 @@ void assertNumberIsPositive(LANGUAGE_KEYWORD number)
         }
     }
 }
-//utils
-//char *remove_white_spaces(char *str)
-//{
-//    int i = 0, j = 0;
-//    while (str[i])
-//    {
-//        if (str[i] != ' ')
-//        str[j++] = str[i];
-//        i++;
-//    }
-//    str[j] = '\0';
-//    return str;
-//}
-//void fileToArray(char* strings[], size_t size){
-//    FILE *f = fopen("../lexer/ids.txt","r");
-//    if (f == NULL){
-//        printf("error opening the file ids.txt");
-//        exit(EXIT_FAILURE);
-//    }
-//    int i = 0;
-//    char line[255], *temp;
-//    while (fgets(line, sizeof(line), f) || i>= size) {
-//        /* note that fgets don't strip the terminating \n, checking its
-//           presence would allow to handle lines longer that sizeof(line) */
-//        strings[i++] = remove_white_spaces(line);
-//        strings[i-1] = malloc(255*sizeof(char));
-//        printf("%s", strings[i-1]);
-//    }
-//
-//}

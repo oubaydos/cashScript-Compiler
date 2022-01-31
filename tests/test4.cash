@@ -1,0 +1,20 @@
+pragma cashscript ^0.7.0;
+contract Simple(){
+    function SimpleFunc(){
+        int a = 5 ;
+        print(a);
+        if (a == 9){
+            int b = 3;
+            input(b);
+            print("the value of b is : ");
+            print(b);
+        }else{
+            while(a != 5){
+                print("a!=5");
+                print("a == ");
+                print(a);
+
+            }
+        }
+    }
+}

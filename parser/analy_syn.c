@@ -968,7 +968,7 @@ void BYTES() {
 }
 
 int main() {
-    fp = fopen("../tests/test1.cash", "r"); // for debuging
+    fp = fopen("../tests/test4.cash", "r"); // for debuging
     if (fp == NULL) {
         perror("Error in opening file");
         return -1;
