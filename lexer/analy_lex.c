@@ -8,7 +8,7 @@ void lex_get_next_char(){
 void next_sym(){
     skip_white_spaces();
     switch(curr_char){
-        case '+': curr_sym=PLUS_TOKEN;lex_get_next_char();break;
+        case '+': curr_sym=OPERATEUR_PLUS_TOKEN;lex_get_next_char();break;
         case '-': curr_sym=MOINS_TOKEN;lex_get_next_char();break;
         //case '*': curr_sym=MULT_TOKEN;lex_get_next_char();break;
         //case '/': curr_sym=DIV_TOKEN;lex_get_next_char();break;
@@ -24,18 +24,18 @@ void next_sym(){
             }
             break;
         case '<': 
-            curr_sym=INF_TOKEN;
+            curr_sym=OPERATEUR_INF_TOKEN;
             lex_get_next_char();
             if(curr_char=='='){
-                curr_sym=INFEG_TOKEN;
+                curr_sym=OPERATEUR_INFEG_TOKEN;
                 lex_get_next_char();
             }
             break;
         case '>': 
-            curr_sym=SUP_TOKEN;
+            curr_sym=OPERATEUR_SUP_TOKEN;
             lex_get_next_char();
             if(curr_char=='='){
-                curr_sym=SUPEG_TOKEN;
+                curr_sym=OPERATEUR_SUPEG_TOKEN;
                 lex_get_next_char();
             }
             break;
@@ -56,7 +56,7 @@ void next_sym(){
 
 
         case '*': 
-            curr_sym=MULT_TOKEN;
+            curr_sym=OPERATEUR_FOIS_TOKEN;
             lex_get_next_char();
             if(curr_char=='/'){
                 curr_sym=COMMENTAIRE_TOKEN_F;
@@ -66,7 +66,7 @@ void next_sym(){
         
 
         case '/': 
-            curr_sym=DIV_TOKEN;
+            curr_sym=OPERATEUR_DIVISER_TOKEN;
             lex_get_next_char();
             if(curr_char=='/'){
                 curr_sym=COMMENTAIRE_LIGNE_TOKEN;
@@ -105,14 +105,23 @@ void next_sym(){
        
         case EOF: curr_sym=EOF_TOKEN;break;
         case '"':
+        curr_sym=GUILLEMET_TOKEN;
+        //curr_sym=GUILLEMET_SIMPLE_TOKEN;
+        lex_get_next_char();
+            //read_string();
+            break;
         case '\'':
-        curr_sym=CONTINIUE_TOKEN;
+        curr_sym=GUILLEMET_SIMPLE_TOKEN;
+        //curr_sym=GUILLEMET_SIMPLE_TOKEN;
         lex_get_next_char();
             //read_string();
             break;
 case '{': curr_sym=ACCOLADE_O_TOKEN;lex_get_next_char();break;
 case '}': curr_sym=ACCOLADE_F_TOKEN;lex_get_next_char();break;
 //case "'": curr_sym=ACCOLADE_F_TOKEN;lex_get_next_char();break;
+
+case '_': curr_sym=UNDER_TOKEN;lex_get_next_char();break;
+
 
 
 
@@ -122,10 +131,10 @@ case '}': curr_sym=ACCOLADE_F_TOKEN;lex_get_next_char();break;
             //skip_comment();
             //break;
         case '=': 
-            curr_sym=EG_TOKEN;
+            curr_sym=OPERATEUR_EG_TOKEN;
             lex_get_next_char();
             if(curr_char=='='){
-                curr_sym=EG_TOKEN;
+                curr_sym=OPERATEUR_EGAL_TOKEN;
                 lex_get_next_char();
             }
             break;
@@ -165,7 +174,7 @@ void read_number(){
     while(isdigit(curr_char)){
         lex_get_next_char();
     }
-    curr_sym=NUM_TOKEN;
+    curr_sym=NOMBRE_LITTERAL_TOKEN;
 }
 void read_word(){
     char word[100];
@@ -234,6 +243,12 @@ void analy_lex(FILE *fp){
         LEX_CODE code4;
         code1=curr_sym;
 
+
+
+
+
+
+
         
         if(curr_sym==TAILLE_TOKEN ||curr_sym==SPLIT_TOKEN ){
             next_sym();
@@ -241,9 +256,9 @@ void analy_lex(FILE *fp){
         i++;}
         
         //COMMENTAIRE_LIGNE_TOKEN
-        if(curr_sym==CONTINIUE_TOKEN  ){
-            next_sym();
-           }
+        //if(curr_sym==GUILLEMET_SIMPLE_TOKEN  ){
+          //  next_sym();
+           //}
 
            if(curr_sym==COMMENTAIRE_TOKEN_O  ){
             next_sym();
@@ -252,6 +267,24 @@ void analy_lex(FILE *fp){
                 next_sym();
             }
             next_sym();
+            
+           }
+
+           if(curr_sym==DATE_TOKEN  ){
+            next_sym();
+               if (curr_sym==PARENTHESE_O_TOKEN)
+                {symbols[i]=(SYMBOL){DATE_TOKEN,current_line};
+                 i++;
+                next_sym();
+                }else{
+                    symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
+                 i++;
+                 symbols[i]=(SYMBOL){curr_sym,current_line};
+                 i++;
+                 next_sym();
+
+                }
+            
             
            }
 
@@ -315,14 +348,18 @@ void analy_lex(FILE *fp){
         symbols[i]=(SYMBOL){code1,current_line};
         i++;symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
         i++;symbols[i]=(SYMBOL){code3,current_line};
-        i++;symbols[i]=(SYMBOL){code4,current_line};
-        i++;}}
+        i++;
+        //symbols[i]=(SYMBOL){code4,current_line};
+        //i++;
+        }}
         
         
         else{
         symbols[i]=(SYMBOL){code1,current_line};
-        i++;symbols[i]=(SYMBOL){code2,current_line};
-        i++;}
+        i++;
+        symbols[i]=(SYMBOL){code2,current_line};
+        i++;
+        }
         }
         else{
          //for debuging 
