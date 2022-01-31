@@ -289,14 +289,24 @@ void analy_lex(FILE *fp){
            }
 
         if(curr_sym==COMMENTAIRE_LIGNE_TOKEN  ){
-            int i;
-            current_line=i;
+            int i=0;
+            i=current_line;
+            while (i==current_line)
+            {
+                next_sym();
+            }
+            if(curr_sym==COMMENTAIRE_LIGNE_TOKEN  ){
+            i=0;
+            i=current_line;
             while (i==current_line)
             {
                 next_sym();
             }
             
-
+            
+           }
+           
+            
             
            }
 
@@ -368,11 +378,19 @@ void analy_lex(FILE *fp){
     }
    
 int j=0;
+
+FILE *fptr;
+fptr = fopen("test2.txt","w");
 for(j;j<i;j++){
+
+    //fwrite(TOKEN_NAMES[symbols[j].token], sizeof(char), 11, fptr);
+    //fwrite("\n", sizeof(char), 1, fptr);
+fprintf(fptr,TOKEN_NAMES[symbols[j].token]);
+fprintf(fptr,"\n ");
 
     printf("\n%s\n ",TOKEN_NAMES[symbols[j].token]);
 
 }
-   
+   fclose(fptr); 
      
 }
