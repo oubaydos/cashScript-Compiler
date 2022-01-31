@@ -12,6 +12,7 @@ int lastIdentifier = 0;
 // functions
 void addIdentifier(LANGUAGE_KEYWORD identifier);
 bool identifierExists(LANGUAGE_KEYWORD identifier);
-bool stringOperationsAreValid(LANGUAGE_KEYWORD firstOperand);
-void printfDoubleDeclarationError(LANGUAGE_KEYWORD identifier);
+bool stringOperationsAreValid(LANGUAGE_KEYWORD firstOperand );
+void printfDoubleDeclarationError(LANGUAGE_KEYWORD identifier,int line);
+void assertNumberIsPositive(LANGUAGE_KEYWORD number, int line);
 #endif
