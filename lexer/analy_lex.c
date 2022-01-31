@@ -261,7 +261,7 @@ if(curr_sym==GUILLEMET_TOKEN){
 
         next_sym();
 
-        while (curr_sym!=GUILLEMET_TOKEN)
+        while (curr_sym!=GUILLEMET_TOKEN && curr_sym!=EOF_TOKEN)
         {
             next_sym();
         }
@@ -278,7 +278,7 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
 
         next_sym();
 
-        while (curr_sym!=GUILLEMET_SIMPLE_TOKEN)
+        while (curr_sym!=GUILLEMET_SIMPLE_TOKEN && curr_sym!=EOF_TOKEN)
         {
             next_sym();
         }
