@@ -1,4 +1,7 @@
 #include "analy_syn.h"
+#include "../lexer/data.c"
+#include "../lexer/analy_lex.c"
+
 #include "../semantic-analyzer/semantics.c"
 
 int cursor = 0;
@@ -42,7 +45,7 @@ void VALEUR_PRAGMA(){
     }
     else if(symbols[cursor].token!= POINT_VIRGULE_TOKEN){
         printError(POINT_VIRGULE_TOKEN);
-        printf(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -66,7 +69,7 @@ void OPERATEUR_VERSION(){
         case EG_TOKEN: test_sym(EG_TOKEN);break;
         default: { 
             printError(ERROR_TOKEN);
-            printf(EXIT_FAILURE);
+            exit(EXIT_FAILURE);
             break;
             }
     }
@@ -164,7 +167,7 @@ void BLOC(){
     }
     else {
         printError(ERROR_TOKEN);
-        printf(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
         
 }
@@ -200,7 +203,7 @@ void DECLARATION(){
     }
     else {
         printError(ERROR_TOKEN);
-        printf(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -255,7 +258,7 @@ void SI(){
     }
     else if(symbols[cursor].token!= ACCOLADE_F_TOKEN){
         printError(ACCOLADE_F_TOKEN);
-        printf(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -480,7 +483,7 @@ void EXPRESSION(){
             }
             else {
                 printError(ERROR_TOKEN);
-                printf(EXIT_FAILURE);
+                exit(EXIT_FAILURE);
             }
 }
 
@@ -508,7 +511,7 @@ void DEUXIEME_EXPRESSION_BINAIRE(){
     
     default:{
         printError(ERROR_TOKEN);
-        printf(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
         break;
     }
     }
@@ -526,7 +529,7 @@ void DEUXIEME_EXPRESSION_BINAIRE(){
     }
     else {
         printError(ERROR_TOKEN);
-        printf(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -541,7 +544,7 @@ void LITTERAL(){
     case DATE_TOKEN : DATE_LITTERAL(); break;
     case HEX_LITTERAL_TOKEN : test_sym(HEX_LITTERAL_TOKEN); break;
     default:{ printError(ERROR_TOKEN);
-                printf(EXIT_FAILURE);
+                exit(EXIT_FAILURE);
                 break;
      } 
     }
@@ -571,7 +574,7 @@ void NOM_TYPE(){
     case BYTES_TOKEN: BYTES(); break;
 
     default:{ printError(ERROR_TOKEN);
-            printf(EXIT_FAILURE);
+            exit(EXIT_FAILURE);
             break;
     }
     }
@@ -579,7 +582,7 @@ void NOM_TYPE(){
 
 void DATE_LITTERAL(){
     test_sym(DATE_TOKEN);
-    test_sym(STRING_LITTERAL_TOKEN);
+    STRING_LITTERAL_TOKEN();
     test_sym(PARENTHESE_F_TOKEN);
 
 }
@@ -628,7 +631,7 @@ void BOOLEAN_LITTERAL_TOKEN(){
     case TRUE_TOKEN: test_sym(TRUE_TOKEN); break;
     case FALSE_TOKEN: test_sym(FALSE_TOKEN); break; 
     default:{printError(ERROR_TOKEN);
-            printf(EXIT_FAILURE);
+            exit(EXIT_FAILURE);
             break;
     }
     }
@@ -649,7 +652,7 @@ void UNITE_TOKEN(){
     case WEEKS_TOKEN: test_sym(WEEKS_TOKEN); break;
     
     default:{printError(ERROR_TOKEN);
-            printf(EXIT_FAILURE);
+            exit(EXIT_FAILURE);
             break;
     }
     }
@@ -670,7 +673,7 @@ void STRING_LITTERAL_TOKEN(){
                         }
     
     default:{printError(ERROR_TOKEN);
-            printf(EXIT_FAILURE);
+            exit(EXIT_FAILURE);
             break;
     }
     }
@@ -682,7 +685,7 @@ void TX_VAR_TOKEN(){
     case TX_AGE_TOKEN: test_sym(TX_AGE_TOKEN); break;
     case TX_TIME_TOKEN: test_sym(TX_TIME_TOKEN); break;
     default:{printError(ERROR_TOKEN);
-            printf(EXIT_FAILURE);
+            exit(EXIT_FAILURE);
             break;
     }
     }
@@ -704,7 +707,7 @@ void CHAMP_AVANT_IMAGE_TOKEN(){
     case TX_PREIMAGE_TOKEN: test_sym(TX_PREIMAGE_TOKEN); break;
     
     default:{printError(ERROR_TOKEN);
-            printf(EXIT_FAILURE);
+            exit(EXIT_FAILURE);
             break;
     }
 }
@@ -715,4 +718,14 @@ void BYTES(){
     if(symbols[cursor].token==NOMBRE_LITTERAL_TOKEN){
         test_sym(NOMBRE_LITTERAL_TOKEN);
     }
+}
+int main(){
+    fp = fopen("../tests/test1.cash", "r"); // for debuging
+    if (fp == NULL)
+    {
+        perror("Error in opening file");
+        return -1;
+    }
+    analy_lex(fp);
+    return 0;
 }

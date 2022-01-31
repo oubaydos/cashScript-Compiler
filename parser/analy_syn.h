@@ -1,8 +1,8 @@
 #ifndef SYN_H
 #define SYN_H
 
-#include"../lexer/data.h"
-#include"../lexer/analy_lex.h"
+#include "../lexer/data.h"
+#include "../lexer/analy_lex.h"
 
 void PROGRAMME();
 void DIRECTIVE_PRAGMA();
@@ -42,4 +42,5 @@ void STRING_LITTERAL_TOKEN();
 void UNITE_TOKEN();
 void CHAMP_AVANT_IMAGE_TOKEN();
 
+void parser();
 #endif
