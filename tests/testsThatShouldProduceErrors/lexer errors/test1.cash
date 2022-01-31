@@ -3,8 +3,8 @@ pragma cashscript ^0.6.0;
 contract TransferWithTimeout(pubkey sender, pubkey recipient, int timeout) {
     // Require recipient's signature to match
     // rhe
+    $
     function transfer(sig recipientSig) {
         require(checkSig(recipientSig, recipient));
-
     }
 }

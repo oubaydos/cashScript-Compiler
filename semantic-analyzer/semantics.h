@@ -9,7 +9,9 @@ int lastKeywords = 0;
 
 LANGUAGE_KEYWORD identifiersTable[MAX_KEYWORDS];
 int lastIdentifier = 0;
-
+//utils
+void fileToArray(char* strings[], size_t size);
+// functions
 void addIdentifier(LANGUAGE_KEYWORD identifier);
 bool identifierExists(LANGUAGE_KEYWORD identifier);
 void asserIdentifierDoesnotExist(LANGUAGE_KEYWORD identifier);

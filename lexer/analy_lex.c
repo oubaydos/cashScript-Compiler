@@ -159,10 +159,10 @@ case '_': curr_sym=UNDER_TOKEN;lex_get_next_char();break;
             }else if (isdigit(curr_char)){
                 read_number();break;
             }else{
-                
-                    printf("%d\n",curr_char);
-                
-                curr_sym=ERROR_TOKEN;return;
+
+                curr_sym=ERROR_TOKEN;
+                printf("erreur : unknown character : %c",curr_char);
+                exit(-1);
             }
     }
 }
@@ -242,7 +242,7 @@ LEX_CODE keyword_code(char* word){
     return -1;
 }
 void analy_lex(FILE *fp){
-    
+
 
     current_line = 1;
     //ids_arr_cursor = 0;
@@ -252,7 +252,11 @@ void analy_lex(FILE *fp){
     int count=0;
 
     FILE *f;
-f = fopen("ids.txt","w");
+    f = fopen("../lexer/ids.txt","w");
+    if (f == NULL) {
+        printf("err\n");
+        exit(-1);
+    }
     while(curr_sym!=EOF_TOKEN && curr_sym!=ERROR_TOKEN){
         next_sym();
         LEX_CODE code1;
@@ -315,9 +319,8 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
 
 
                 //strcpy(ids[i],id);
-                
-                
-                
+
+
                 fprintf(f,id);fprintf(f,"\n ");
 
 

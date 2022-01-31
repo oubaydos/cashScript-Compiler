@@ -1,12 +1,13 @@
 #include "../lexer/data.c"
 #include "../lexer/analy_lex.c"
-
+#include <unistd.h>
 #include "../semantic-analyzer/semantics.c"
 
 int cursor = 0;
 
 void printError(LEX_CODE code) {
-    printf("Error in line %d: %s\n", symbols[cursor - 1].line, TOKEN_ERRORS[code]);
+    if (code == CONTRAT_TOKEN) printf("Error in line 1: PRAGMA_ERROR\n");
+    else printf("Error in line %d: %s\n", symbols[cursor - 1].line, TOKEN_ERRORS[code]);
 }
 
 void test_sym(LEX_CODE code) {
@@ -14,7 +15,7 @@ void test_sym(LEX_CODE code) {
         cursor++;
     } else {
         printError(code);
-        exit(EXIT_FAILURE);
+        exit(1);
     }
 }
 
@@ -972,10 +973,14 @@ int main() {
         perror("Error in opening file");
         return -1;
     }
-    printf("analyseur lexical : \n");
     analy_lex(fp);
+//    sleep(4);
+//    char* tempCharArray[MAX_KEYWORDS];
+//    fileToArray(tempCharArray,MAX_KEYWORDS);
+//    printf("\n\n%s",tempCharArray[0]);
     printf("analyseur lexical termine : success \n");
-    printf("analyseur lexical et semantique : success\n");
     PROGRAMME();
+    printf("analyseur lexical et semantique : success\n");
+
     return 0;
 }

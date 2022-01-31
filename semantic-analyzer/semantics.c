@@ -111,3 +111,33 @@ void assertNumberIsPositive(LANGUAGE_KEYWORD number)
         }
     }
 }
+//utils
+//char *remove_white_spaces(char *str)
+//{
+//    int i = 0, j = 0;
+//    while (str[i])
+//    {
+//        if (str[i] != ' ')
+//        str[j++] = str[i];
+//        i++;
+//    }
+//    str[j] = '\0';
+//    return str;
+//}
+//void fileToArray(char* strings[], size_t size){
+//    FILE *f = fopen("../lexer/ids.txt","r");
+//    if (f == NULL){
+//        printf("error opening the file ids.txt");
+//        exit(EXIT_FAILURE);
+//    }
+//    int i = 0;
+//    char line[255], *temp;
+//    while (fgets(line, sizeof(line), f) || i>= size) {
+//        /* note that fgets don't strip the terminating \n, checking its
+//           presence would allow to handle lines longer that sizeof(line) */
+//        strings[i++] = remove_white_spaces(line);
+//        strings[i-1] = malloc(255*sizeof(char));
+//        printf("%s", strings[i-1]);
+//    }
+//
+//}

@@ -1,8 +1,4 @@
-typedef struct
-{
-    int firstNumber;
-    int secondNumber;
-    int thirdNumber;
-} versionStruct;
+#ifndef UTILS_H
+#define UTILS_H
 
-versionStruct StringVersionToNumbers(char *version);
+#endif

@@ -2,7 +2,8 @@
 #define DATA_H
 
 #include<stdio.h>
-#include<stdio.h>
+#include<stdbool.h>
+#include <stdlib.h>
 #include<string.h>
 
 char curr_char;
@@ -50,11 +51,11 @@ typedef enum {
     TYPE_CLE_PUBLIQUE_TOKEN,
     TYPE_SIGNATURE_TOKEN,
     TYPE_SIGNATURE_DONNEE_TOKEN,
-    BOOLEAN_LITTERAL_TOKEN,
+//    BOOLEAN_LITTERAL_TOKEN,
 
     
     BYTES_TOKEN,
-    UNITE_TOKEN,
+//    UNITE_TOKEN,
     PRAGMA_TOKEN,
     ACCOLADE_F_TOKEN,
     ACCOLADE_O_TOKEN,

@@ -43,10 +43,10 @@ const char* TOKEN_NAMES[]={
     "TYPE_CLE_PUBLIQUE_TOKEN",
     "TYPE_SIGNATURE_TOKEN",
     "TYPE_SIGNATURE_DONNEE_TOKEN",
-    "BOOLEAN_LITTERAL_TOKEN",
+//    "BOOLEAN_LITTERAL_TOKEN",
     
     "BYTES_TOKEN",
-    "UNITE_TOKEN",
+//    "UNITE_TOKEN",
     "PRAGMA_TOKEN",
     "ACCOLADE_F_TOKEN",
     "ACCOLADE_O_TOKEN",
@@ -148,7 +148,6 @@ const char* TOKEN_ERRORS[]={//TODO:
     "READ_ERROR",
     "WRITE_ERROR",
     "VAR_ERROR",
-
 };
 const LANGUAGE_KEYWORD pascal_keywords[]={
     {IF_TOKEN,"if"},
