@@ -305,7 +305,7 @@ void analy_lex(FILE *fp) {
     int count = 0;
 
     FILE *f;
-    f = fopen("./lexer/ids.txt", "w");
+    f = fopen("../lexer/ids.txt", "w");
     if (f == NULL) {
         printf("err\n");
         exit(-1);
