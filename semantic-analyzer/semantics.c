@@ -29,14 +29,14 @@ bool identifierExists(LANGUAGE_KEYWORD identifier)
     return false;
 }
 
-void asserIdentifierDoesnotExist(LANGUAGE_KEYWORD identifier)
+void assertIdentifierDoesnotExist(LANGUAGE_KEYWORD identifier)
 {
     if (!identifierExists(identifier))
         addIdentifier(identifier);
     else
         printfDoubleDeclarationError(identifier);
 }
-void asserIdentifierExistsBeforeUse(LANGUAGE_KEYWORD identifier)
+void assertIdentifierExistsBeforeUse(LANGUAGE_KEYWORD identifier)
 {
     if (!identifierExists(identifier))
     {

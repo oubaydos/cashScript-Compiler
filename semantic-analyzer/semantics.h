@@ -9,7 +9,6 @@ int lastKeywords = 0;
 
 LANGUAGE_KEYWORD identifiersTable[MAX_KEYWORDS];
 int lastIdentifier = 0;
-//utils
 // functions
 void addIdentifier(LANGUAGE_KEYWORD identifier);
 bool identifierExists(LANGUAGE_KEYWORD identifier);
