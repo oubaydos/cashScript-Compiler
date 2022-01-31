@@ -299,7 +299,7 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
 
 
         
-        if(curr_sym==TAILLE_TOKEN ||curr_sym==SPLIT_TOKEN ){
+        if(curr_sym==TAILLE_TOKEN ||curr_sym==SPLIT_TOKEN ||curr_sym==INVERSER_TOKEN ){
             next_sym();
             symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
         i++;}
@@ -416,8 +416,10 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
         else{
         symbols[i]=(SYMBOL){POINT_TOKEN,current_line};
         i++;
+        
         symbols[i]=(SYMBOL){code2,current_line};
         i++;
+        //next_sym();
         }
         }
         else{
