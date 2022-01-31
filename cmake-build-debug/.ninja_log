@@ -1,0 +1,13 @@
+# ninja log v5
+27	181	6653359964145556	CMakeFiles/cashScript_Compiler.dir/lexer/data.c.obj	a28154900e41f78c
+23	154	6653362721535818	CMakeFiles/cashScript_Compiler.dir/semantic-analyzer/semantics.c.obj	b633ef9b06d32778
+0	142	6653372836204120	CMakeFiles/main.dir/lexer/main.c.obj	1a10925184f91fe6
+143	294	6653372837772468	main.exe	e106176f6bec6ac3
+3	173	6653362721651681	CMakeFiles/cashScript_Compiler.dir/lexer/analy_lex.c.obj	b216138c6da2fc9b
+3	209	6653364050496956	CMakeFiles/cashScript_Compiler.dir/parser/analy_syn.c.obj	ae5e42f9cf18339f
+0	194	6653373347837663	CMakeFiles/main.dir/parser/analy_syn.c.obj	ceeac83819979477
+195	337	6653373349243891	main.exe	b6143598d95fc86a
+3	249	6653375929460364	CMakeFiles/main.dir/parser/analy_syn.c.obj	ceeac83819979477
+250	431	6653375931335329	main.exe	b6143598d95fc86a
+2	275	6653379433110458	CMakeFiles/main.dir/parser/analy_syn.c.obj	ceeac83819979477
+275	435	6653379434667939	main.exe	b6143598d95fc86a

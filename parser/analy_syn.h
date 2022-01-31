@@ -1,7 +1,6 @@
 #ifndef SYN_H
 #define SYN_H
 
-#include "../lexer/data.h"
 #include "../lexer/analy_lex.h"
 
 void PROGRAMME();

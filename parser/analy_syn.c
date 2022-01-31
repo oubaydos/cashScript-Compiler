@@ -1,4 +1,3 @@
-#include "analy_syn.h"
 #include "../lexer/data.c"
 #include "../lexer/analy_lex.c"
 
@@ -726,6 +725,10 @@ int main(){
         perror("Error in opening file");
         return -1;
     }
+    printf("analyseur lexical : \n");
     analy_lex(fp);
+    printf("analyseur lexical termine : success \n");
+    printf("analyseur lexical et semantique : \n");
+    PROGRAMME();
     return 0;
 }

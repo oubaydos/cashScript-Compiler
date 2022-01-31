@@ -1,4 +1,5 @@
-#include <stdbool.h>
+#ifndef SEM_H
+#define SEM_H
 #include "../parser/analy_syn.h"
 #define MAX_KEYWORDS 255
 // this should be given by the lexer
@@ -30,3 +31,4 @@ void assertStringOperationsAreValid(LANGUAGE_KEYWORD firstOperand);
 
 void printfSemanticError(char *errorMessage);
 void printfDoubleDeclarationError(LANGUAGE_KEYWORD identifier);
+#endif
