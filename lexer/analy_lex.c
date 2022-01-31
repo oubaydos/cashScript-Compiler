@@ -196,6 +196,8 @@ void read_word(){
         lex_get_next_char();
     }
     word[i]='\0';
+
+strcpy(id,word);
     LEX_CODE code = keyword_code(word);
     if(code==-1) {
         curr_sym=IDENTIFIANT_TOKEN;
@@ -240,12 +242,17 @@ LEX_CODE keyword_code(char* word){
     return -1;
 }
 void analy_lex(FILE *fp){
+    
+
     current_line = 1;
     //ids_arr_cursor = 0;
     last_keyword = -1;
     lex_get_next_char();
     int i=0;
     int count=0;
+
+    FILE *f;
+f = fopen("ids.txt","w");
     while(curr_sym!=EOF_TOKEN && curr_sym!=ERROR_TOKEN){
         next_sym();
         LEX_CODE code1;
@@ -253,6 +260,8 @@ void analy_lex(FILE *fp){
         LEX_CODE code3;
         LEX_CODE code4;
         code1=curr_sym;
+
+       
 
 
 if(curr_sym==GUILLEMET_TOKEN){
@@ -299,7 +308,23 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
 
 
         
-        if(curr_sym==TAILLE_TOKEN ||curr_sym==SPLIT_TOKEN ||curr_sym==INVERSER_TOKEN ){
+        if(curr_sym==TAILLE_TOKEN ||curr_sym==SPLIT_TOKEN ||curr_sym==INVERSER_TOKEN||curr_sym==IDENTIFIANT_TOKEN ){
+            
+            if(strcmp(id,"")!=0){
+
+
+
+                //strcpy(ids[i],id);
+                
+                
+                
+                fprintf(f,id);fprintf(f,"\n ");
+
+
+
+
+}
+
             next_sym();
             symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
         i++;}
@@ -326,6 +351,7 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
                  i++;
                 next_sym();
                 }else{
+                    fprintf(f,id);fprintf(f,"\n ");
                     symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
                  i++;
                  symbols[i]=(SYMBOL){curr_sym,current_line};
@@ -398,6 +424,7 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
             else{
              symbols[i]=(SYMBOL){POINT_TOKEN,current_line};
         i++;symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
+         fprintf(f,id);fprintf(f,"\n ");
         i++;symbols[i]=(SYMBOL){code3,current_line};
         i++;symbols[i]=(SYMBOL){code4,current_line};
         i++;}}
@@ -406,6 +433,7 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
             //for debuging 
         symbols[i]=(SYMBOL){POINT_TOKEN,current_line};
         i++;symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
+         fprintf(f,id);fprintf(f,"\n ");
         i++;symbols[i]=(SYMBOL){code3,current_line};
         i++;
         //symbols[i]=(SYMBOL){code4,current_line};
@@ -416,8 +444,7 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
         else{
         symbols[i]=(SYMBOL){POINT_TOKEN,current_line};
         i++;
-        
-        symbols[i]=(SYMBOL){code2,current_line};
+           symbols[i]=(SYMBOL){code2,current_line};
         i++;
         //next_sym();
         }
@@ -431,7 +458,7 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
 int j=0;
 
 FILE *fptr;
-fptr = fopen("test2.txt","w");
+fptr = fopen("test.txt","w");
 for(j;j<i;j++){
 
     //fwrite(TOKEN_NAMES[symbols[j].token], sizeof(char), 11, fptr);
@@ -439,7 +466,7 @@ for(j;j<i;j++){
 fprintf(fptr,TOKEN_NAMES[symbols[j].token]);
 fprintf(fptr,"\n ");
 
-    printf("\n%s\n ",TOKEN_NAMES[symbols[j].token]);
+    //printf("\n%s\n ",TOKEN_NAMES[symbols[j].token]);
 
 }
    fclose(fptr); 

@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include<string.h>
 #include<ctype.h>
-#include <stdbool.h>
 #include"data.h"
 
 void lex_get_next_char();
