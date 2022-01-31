@@ -5,6 +5,7 @@
         "stdbool.h": "c",
         "utils.h": "c",
         "analy_syn.h": "c",
-        "data.h": "c"
+        "data.h": "c",
+        "string.h": "c"
     }
 }

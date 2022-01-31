@@ -4,7 +4,7 @@
 #include<stdio.h>
 #include<stdio.h>
 #include<string.h>
-
+#define STRING_VALEUR_TOKEN STRING_TOKEN
 char curr_char;
 FILE *fp;
 
@@ -50,11 +50,11 @@ typedef enum {
     TYPE_CLE_PUBLIQUE_TOKEN,
     TYPE_SIGNATURE_TOKEN,
     TYPE_SIGNATURE_DONNEE_TOKEN,
-    BOOLEAN_LITTERAL_TOKEN,
+    // BOOLEAN_LITTERAL_TOKEN,
 
     
     BYTES_TOKEN,
-    UNITE_TOKEN,
+    // UNITE_TOKEN,
     PRAGMA_TOKEN,
     ACCOLADE_F_TOKEN,
     ACCOLADE_O_TOKEN,
