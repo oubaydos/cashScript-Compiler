@@ -3,6 +3,12 @@ pragma cashscript ^0.6.0;
 // A minimum block is provided to ensure that oracle price entries from before
 // this block are disregarded. i.e. when the BCH price was 1000 in the past,
 contract HodlVault(pubkey ownerPk, pubkey oraclePk, int minBlock, int priceTarget) {
+    function checkDataSig(datasig oracleSign, bytes oracleMsage, pubkey oraclepk){
+        print("cheking data sign");
+    }
+    function checkSig(sig sign,pubkey pubk){
+            print("cheking sign");
+        }
     function spend(sig ownerSig, datasig oracleSig, bytes oracleMessage) {
         // Decode the message { blockHeight, price }
         string a = oracleMessage.split(4);
@@ -13,7 +19,7 @@ contract HodlVault(pubkey ownerPk, pubkey oraclePk, int minBlock, int priceTarge
         require(blockHeight >= minBlock);
         // Check that blockHeight is not in the future
         require_time( tx_time >= blockHeight);
-
+        int price = 0;
         // Check that current price is at least priceTarget
         require(price >= priceTarget);
 

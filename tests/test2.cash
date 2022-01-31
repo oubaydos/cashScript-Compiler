@@ -1,6 +1,21 @@
 pragma cashscript ^0.6.0;
 
 contract Mecenas(bytes recipient, bytes funder, int pledge) {
+    function checkSig(sig sign,pubkey pubk){
+        print("nothing");
+    }
+    function OutputP2PKH(bytes by, bytes reci){
+        print("random OutputP2PKH");
+    }
+    function OutputP2SH(bytes by, bytes reci){
+            print("random OutputP2SH");
+        }
+    function hash256(bytes byt){
+            print("random hash256");
+        }
+    function hash160(bytes byt){
+                print("random hash160");
+            }
     // Allow the receiver to claim their monthly pledge amount
     function receive(pubkey pk, sig s) {
         // The transaction can be signed by anyone, because the money can only

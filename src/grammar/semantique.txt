@@ -3,5 +3,4 @@ PAS D'OMBRE VARIABLES -- no variable shadowing : once a variable is declared, it
 TOUTE VARIABLE DOIT ETRE DECLARER AVANT D'ETRE UTILISE SAUF LES VARIABLES UTILISES -- done
 LES OPERATEURS UTILISE ONT DES VARIABLES DE TYPE COMPATIBLE
     .split, .reverse(), .length : string
-LES NOMBRE DANS LA VERSION SONT POSITIFS - done
 Les commentaires ne doivent pas être interprétés

@@ -1,7 +1,6 @@
 #include "../lexer/data.c"
 #include "../lexer/analy_lex.c"
-#include <unistd.h>
-#include "../semantic-analyzer/semantics.c"
+#include "analy_syn.h"
 
 int cursor = 0;
 
@@ -88,7 +87,7 @@ void OPERATEUR_VERSION() {
 void DEFINITION_CONTRAT() {
     test_sym(CONTRAT_TOKEN);
     // --- check if identifier exists
-    assertIdentifierDoesnotExist(keywordsTable[cursor]);
+//    assertIdentifierDoesnotExist({.code : keywordsTable[cursor],. },current_line);
     // -------------
     test_sym(IDENTIFIANT_TOKEN);
     LISTE_PARAMETRE();
@@ -102,7 +101,7 @@ void DEFINITION_CONTRAT() {
 void DEFINITION_FONCTION() {
     test_sym(FONCTION_TOKEN);
     // --- check if identifier exists
-    assertIdentifierDoesnotExist(keywordsTable[cursor]);
+//    assertIdentifierDoesnotExist(keywordsTable[cursor]);
     // -------------
     test_sym(IDENTIFIANT_TOKEN);
     LISTE_PARAMETRE();
@@ -147,7 +146,7 @@ void LISTE_PARAMETRE() {
 void PARAMETRE() {
     NOM_TYPE();
     // --- check if identifier exists
-    assertIdentifierDoesnotExist(keywordsTable[cursor]);
+//    assertIdentifierDoesnotExist(keywordsTable[cursor]);
     // -------------
     test_sym(IDENTIFIANT_TOKEN);
 }
@@ -213,7 +212,7 @@ void DECLARATION() {
 void DEFINITION_VARIABLE() {
     NOM_TYPE();
     // --- check if identifier exists
-    assertIdentifierDoesnotExist(keywordsTable[cursor]);
+//    assertIdentifierDoesnotExist(keywordsTable[cursor]);
     // -------------
     test_sym(IDENTIFIANT_TOKEN);
     test_sym(OPERATEUR_EG_TOKEN);
@@ -223,7 +222,7 @@ void DEFINITION_VARIABLE() {
 
 void AFFECTATION() {
     // --- check if identifier exists
-    assertIdentifierExistsBeforeUse(keywordsTable[cursor]);
+//    assertIdentifierExistsBeforeUse(keywordsTable[cursor]);
     // -------------
     test_sym(IDENTIFIANT_TOKEN);
     test_sym(OPERATEUR_EG_TOKEN);
@@ -267,7 +266,7 @@ void SI() {
 
 void FONCTION() {
     // --- check if identifier exists
-    assertIdentifierDoesnotExist(keywordsTable[cursor]);
+//    assertIdentifierDoesnotExist(keywordsTable[cursor]);
     // -------------
     test_sym(IDENTIFIANT_TOKEN);
 }
@@ -373,7 +372,7 @@ void EXPRESSION() {
     } else if (symbols[cursor].token == NOUVEAU_TOKEN) {
         test_sym(NOUVEAU_TOKEN);
         // --- check if identifier exists
-        assertIdentifierExistsBeforeUse(keywordsTable[cursor]);
+//        assertIdentifierExistsBeforeUse(keywordsTable[cursor]);
         // -------------
         test_sym(IDENTIFIANT_TOKEN);
         LISTE_EXPRESSIONS();
@@ -398,7 +397,7 @@ void EXPRESSION() {
             };
                 break;
             case SPLIT_TOKEN: {
-                            assertStringOperationsAreValid(keywordsTable[cursor-1]);
+//                            assertStringOperationsAreValid(keywordsTable[cursor-1]);
                 test_sym(SPLIT_TOKEN);
                 test_sym(PARENTHESE_O_TOKEN);
                 EXPRESSION();
@@ -479,7 +478,7 @@ void EXPRESSION() {
             }
                 break;
             case SPLIT_TOKEN: {
-                            assertStringOperationsAreValid(keywordsTable[cursor-1]);
+//                            assertStringOperationsAreValid(keywordsTable[cursor-1]);
                 test_sym(SPLIT_TOKEN);
                 test_sym(PARENTHESE_O_TOKEN);
                 EXPRESSION();
@@ -682,7 +681,7 @@ void DEUXIEME_EXPRESSION_BINAIRE() {
     }
     if (symbols[cursor].token == IDENTIFIANT_TOKEN) {
         // --- check if identifier exists
-        assertIdentifierExistsBeforeUse(keywordsTable[cursor]);
+//        assertIdentifierExistsBeforeUse(keywordsTable[cursor]);
         // -------------
         test_sym(IDENTIFIANT_TOKEN);
     } else if (symbols[cursor].token == TRUE_TOKEN || symbols[cursor].token == FALSE_TOKEN ||
@@ -800,7 +799,7 @@ void ECRIRE() {
 void LIRE() {
     test_sym(LIRE_TOKEN);
     // --- check if identifier exists
-    assertIdentifierExistsBeforeUse(keywordsTable[cursor]);
+//    assertIdentifierExistsBeforeUse(keywordsTable[cursor]);
     // -------------
     test_sym(PARENTHESE_O_TOKEN);
     test_sym(IDENTIFIANT_TOKEN);
@@ -809,13 +808,13 @@ void LIRE() {
 }
 
 void VERSION_LITTERALE_TOKEN() {
-    assertNumberIsPositive(keywordsTable[cursor]);
+//    assertNumberIsPositive(keywordsTable[cursor]);
     test_sym(NOMBRE_LITTERAL_TOKEN);
     test_sym(POINT_TOKEN);
-    assertNumberIsPositive(keywordsTable[cursor]);
+//    assertNumberIsPositive(keywordsTable[cursor]);
     test_sym(NOMBRE_LITTERAL_TOKEN);
     test_sym(POINT_TOKEN);
-    assertNumberIsPositive(keywordsTable[cursor]);
+//    assertNumberIsPositive(keywordsTable[cursor]);
     test_sym(NOMBRE_LITTERAL_TOKEN);
 }
 
@@ -966,20 +965,6 @@ void BYTES() {
     }
 }
 
-int main() {
-    fp = fopen("../tests/test4.cash", "r"); // for debuging
-    if (fp == NULL) {
-        perror("Error in opening file");
-        return -1;
-    }
-    analy_lex(fp);
-//    sleep(4);
-//    char* tempCharArray[MAX_KEYWORDS];
-//    fileToArray(tempCharArray,MAX_KEYWORDS);
-//    printf("\n\n%s",tempCharArray[0]);
-    printf("analyseur lexical termine : success \n");
+void analy_syn(){
     PROGRAMME();
-    printf("analyseur lexical et semantique : success\n");
-
-    return 0;
 }

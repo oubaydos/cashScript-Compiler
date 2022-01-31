@@ -4,15 +4,11 @@
 #define MAX_KEYWORDS 255
 // this should be given by the lexer
 // it should contain all the used token with their corresponding value
-LANGUAGE_KEYWORD keywordsTable[MAX_KEYWORDS];
-int lastKeywords = 0;
 
-LANGUAGE_KEYWORD identifiersTable[MAX_KEYWORDS];
-int lastIdentifier = 0;
+
+
 // functions
-void addIdentifier(LANGUAGE_KEYWORD identifier);
 bool identifierExists(LANGUAGE_KEYWORD identifier);
-bool stringOperationsAreValid(LANGUAGE_KEYWORD firstOperand );
-void printfDoubleDeclarationError(LANGUAGE_KEYWORD identifier,int line);
-void assertNumberIsPositive(LANGUAGE_KEYWORD number, int line);
+bool stringOperationsAreValid(LANGUAGE_KEYWORD firstOperand , int line);
+void printfDoubleDeclarationError(LANGUAGE_KEYWORD identifier);
 #endif

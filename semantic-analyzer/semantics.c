@@ -1,18 +1,14 @@
 #include "semantics.h"
+#include "../parser/analy_syn.c"
 void printfSemanticError(char *errorMessage)
 {
     printf("Semantic error: %s\n", errorMessage);
     exit(1);
 }
-void printfDoubleDeclarationError(LANGUAGE_KEYWORD identifier,int line)
+void printfDoubleDeclarationError(LANGUAGE_KEYWORD identifier)
 {
-    printf("double déclaration de %s, \t ligne : %d", identifier.keyword,line);
+    printf("double declaration de %s", identifier.keyword);
     exit(1);
-}
-// add to list of identifiers
-void addIdentifier(LANGUAGE_KEYWORD identifier)
-{
-    identifiersTable[lastKeywords++] = identifier;
 }
 
 // if an identifier is defined twice exit with an error
@@ -29,41 +25,56 @@ bool identifierExists(LANGUAGE_KEYWORD identifier)
     return false;
 }
 
-void assertIdentifierDoesnotExist(LANGUAGE_KEYWORD identifier,int line)
+void assertIdentifierDoesnotExist(LANGUAGE_KEYWORD identifier)
 {
-    if (!identifierExists(identifier))
-        addIdentifier(identifier);
-    else
-        printfDoubleDeclarationError(identifier,line);
+    if (identifierExists(identifier))
+        printfDoubleDeclarationError(identifier);
+
 }
-void assertIdentifierExistsBeforeUse(LANGUAGE_KEYWORD identifier, int line)
+void assertIdentifierExistsBeforeUse(LANGUAGE_KEYWORD identifier)
 {
     if (!identifierExists(identifier))
     {
-        printf("identifiant utilisé mais n'est pas déclaré %s \t ligne : %d ", identifier.keyword,line);
+        printf("identifiant utilise mais n'est pas declare %s ", identifier.keyword);
         exit(1);
     }
 }
-bool stringOperationsAreValid(LANGUAGE_KEYWORD firstOperand)
+bool stringOperationsAreValid(LANGUAGE_KEYWORD firstOperand, int line)
 {
-    return firstOperand.code == IDENTIFIANT_TOKEN || firstOperand.code == STRING_VALEUR_TOKEN;
+    return firstOperand.code == IDENTIFIANT_TOKEN || firstOperand.code == GUILLEMET_TOKEN || firstOperand.code == GUILLEMET_SIMPLE_TOKEN;
 }
 void assertStringOperationsAreValid(LANGUAGE_KEYWORD firstOperand, int line)
 {
-    if (!stringOperationsAreValid(firstOperand))
+    if (!stringOperationsAreValid(firstOperand, line))
     {
-        printf("operation invalide pour %s \t ligne : ", firstOperand.keyword,line);
+        printf("operation invalide pour %s dans la ligne : %d", TOKEN_NAMES[firstOperand.code],line);
         exit(1);
     }
 }
-void assertNumberIsPositive(LANGUAGE_KEYWORD number, int line)
-{
-    for (int i = 0; i < number.keyword[i] != '\0' && i < 254; i++)
-    {
-        if (number.keyword[i] == '-')
-        {
-            printf("operation invalide pour %s : le nombre dans la version doit etre positif \t ligne : ", number.keyword,line);
-            exit(1);
+void analy_sem(){
+    for (int counter = 0 ; counter < lastUsedIdentifier ; counter++){
+        assertIdentifierExistsBeforeUse(usedIdentifiersTable[counter]);
+    }
+    LANGUAGE_KEYWORD tempLanguageKeyword;
+    for (int counter = 0 ; counter < cursor ; counter++){
+        if (symbols[counter].token == SPLIT_TOKEN || symbols[counter].token == INVERSER_TOKEN || symbols[counter].token == TAILLE_TOKEN){
+            tempLanguageKeyword.code = symbols[counter-1].token;
+            strcpy(tempLanguageKeyword.keyword,"");
+            assertStringOperationsAreValid(tempLanguageKeyword, symbols[cursor - 1].line);
         }
     }
+}
+int main() {
+    fp = fopen("../tests/test.cash", "r"); // for debuging
+    if (fp == NULL) {
+        perror("Error in opening file");
+        return -1;
+    }
+    analy_lex(fp);
+    printf("analyseur lexical termine : success \n");
+    analy_syn();
+    printf("analyseur lexical : success\n");
+    analy_sem();
+    printf("analyseur semantique : success\n");
+    return 0;
 }

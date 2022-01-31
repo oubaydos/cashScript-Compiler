@@ -1,5 +1,4 @@
 #include"data.h"
-
 const char* TOKEN_NAMES[]={
     
      "IDENTIFIANT_TOKEN",
