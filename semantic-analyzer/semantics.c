@@ -65,7 +65,7 @@ void analy_sem(){
     }
 }
 int main() {
-    fp = fopen("./tests/test.cash", "r"); // for debuging
+    fp = fopen("../tests/test.cash", "r"); // for debuging
     if (fp == NULL) {
         perror("Error in opening file");
         return -1;
