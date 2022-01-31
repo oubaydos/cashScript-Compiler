@@ -41,7 +41,7 @@ contract Mecenas(bytes recipient, bytes funder, int pledge) {
         }
         while (true){
             int a = 5;
-            int b = a+ 6;
+            int b = a + 6;
             require_time(tempString == tempString2, 5);
         }
         string alpha = "";

@@ -1,4 +1,5 @@
 #include "analy_syn.h"
+#include "../semantic-analyzer/semantics.c"
 
 int cursor = 0;
 
@@ -73,6 +74,9 @@ void OPERATEUR_VERSION(){
 
 void DEFINITION_CONTRAT(){
     test_sym(CONTRAT_TOKEN);
+    // --- check if identifier exists
+    asserIdentifierDoesnotExist(keywordsTable[cursor]);
+    // -------------
     test_sym(IDENTIFIANT_TOKEN);
     LISTE_PARAMETRE();
     test_sym(ACCOLADE_O_TOKEN);
@@ -85,6 +89,9 @@ void DEFINITION_CONTRAT(){
 
 void DEFINITION_FONCTION(){
     test_sym(FONCTION_TOKEN);
+    // --- check if identifier exists
+    asserIdentifierDoesnotExist(keywordsTable[cursor]);
+    // -------------
     test_sym(IDENTIFIANT_TOKEN);
     LISTE_PARAMETRE();
     test_sym(ACCOLADE_O_TOKEN);
@@ -125,6 +132,9 @@ void LISTE_PARAMETRE(){
 
 void PARAMETRE(){
     NOM_TYPE();
+    // --- check if identifier exists
+    asserIdentifierDoesnotExist(keywordsTable[cursor]);
+    // -------------
     test_sym(IDENTIFIANT_TOKEN);
 }
 
@@ -196,6 +206,9 @@ void DECLARATION(){
 
 void DEFINITION_VARIABLE(){
     NOM_TYPE();
+    // --- check if identifier exists
+    asserIdentifierDoesnotExist(keywordsTable[cursor]);
+    // -------------
     test_sym(IDENTIFIANT_TOKEN);
     test_sym(EG_TOKEN);
     EXPRESSION();
@@ -203,6 +216,9 @@ void DEFINITION_VARIABLE(){
 }
 
 void AFFECTATION(){
+    // --- check if identifier exists
+    asserIdentifierExistsBeforeUse(keywordsTable[cursor]);
+    // -------------
     test_sym(IDENTIFIANT_TOKEN);
     test_sym(EG_TOKEN);
     EXPRESSION();
@@ -244,6 +260,9 @@ void SI(){
 }
 
 void FONCTION(){
+    // --- check if identifier exists
+    asserIdentifierDoesnotExist(keywordsTable[cursor]);
+    // -------------
     test_sym(IDENTIFIANT_TOKEN);
 }
 
@@ -324,6 +343,9 @@ void EXPRESSION(){
     }
     else if(symbols[cursor].token==NOUVEAU_TOKEN){
         test_sym(NOUVEAU_TOKEN);
+        // --- check if identifier exists
+        asserIdentifierExistsBeforeUse(keywordsTable[cursor]);
+        // -------------
         test_sym(IDENTIFIANT_TOKEN);
         LISTE_EXPRESSIONS();
     }
@@ -339,6 +361,7 @@ void EXPRESSION(){
                                 test_sym(CROCHET_F_TOKEN);
                                 }; break;
         case SPLIT_TOKEN: {
+                            assertStringOperationsAreValid(keywordsTable[cursor-1]);
                             test_sym(SPLIT_TOKEN);
                             test_sym(PARENTHESE_O_TOKEN);
                             EXPRESSION();
@@ -372,7 +395,9 @@ void EXPRESSION(){
         case INVERSER_TOKEN: test_sym(INVERSER_TOKEN); break;
         case TAILLE_TOKEN: test_sym(TAILLE_TOKEN); break;
         case CROCHET_O_TOKEN: {test_sym(CROCHET_O_TOKEN); test_sym(NOMBRE_LITTERAL_TOKEN); test_sym(CROCHET_F_TOKEN); } break;
-        case SPLIT_TOKEN: {test_sym(SPLIT_TOKEN);
+        case SPLIT_TOKEN: {
+                            assertStringOperationsAreValid(keywordsTable[cursor-1]);
+                            test_sym(SPLIT_TOKEN);
                             test_sym(PARENTHESE_O_TOKEN);
                             EXPRESSION();
                             test_sym(PARENTHESE_F_TOKEN);
@@ -465,7 +490,9 @@ void DEUXIEME_EXPRESSION_BINAIRE(){
     case OPERATEUR_FOIS_TOKEN: test_sym(OPERATEUR_FOIS_TOKEN); break;
     case DIV_TOKEN: test_sym(DIV_TOKEN); break;
     case OPERATEUR_MODULO_TOKEN: test_sym(OPERATEUR_MODULO_TOKEN); break;
-    case PLUS_TOKEN: test_sym(PLUS_TOKEN); break;
+    case PLUS_TOKEN:
+        // assertPlusOperationIsValid(keywordsTable[cursor-1],keywordsTable[cursor+1]);
+         test_sym(PLUS_TOKEN); break;
     case MOINS_TOKEN: test_sym(MOINS_TOKEN); break;
     case INF_TOKEN: test_sym(INF_TOKEN); break;
     case INFEG_TOKEN: test_sym(INFEG_TOKEN); break;
@@ -486,6 +513,9 @@ void DEUXIEME_EXPRESSION_BINAIRE(){
     }
     }
     if(symbols[cursor].token==IDENTIFIANT_TOKEN){
+        // --- check if identifier exists
+    asserIdentifierExistsBeforeUse(keywordsTable[cursor]);
+    // -------------
         test_sym(IDENTIFIANT_TOKEN);
     }
     else if(symbols[cursor].token==TRUE_TOKEN || symbols[cursor].token==FALSE_TOKEN || symbols[cursor].token==NOMBRE_LITTERAL_TOKEN
@@ -573,16 +603,22 @@ void ECRIRE(){
 
 void LIRE(){
     test_sym(READ_TOKEN);
+    // --- check if identifier exists
+    asserIdentifierExistsBeforeUse(keywordsTable[cursor]);
+    // -------------
     test_sym(IDENTIFIANT_TOKEN);
     test_sym(PARENTHESE_F_TOKEN);
     test_sym(POINT_VIRGULE_TOKEN);
 }
 
 void VERSION_LITTERALE_TOKEN(){
+    assertNumberIsPositive(keywordsTable[cursor]);
     test_sym(NOMBRE_LITTERAL_TOKEN);
     test_sym(POINT_TOKEN);
+    assertNumberIsPositive(keywordsTable[cursor]);
     test_sym(NOMBRE_LITTERAL_TOKEN);
     test_sym(POINT_TOKEN);
+    assertNumberIsPositive(keywordsTable[cursor]);
     test_sym(NOMBRE_LITTERAL_TOKEN);
 }
 

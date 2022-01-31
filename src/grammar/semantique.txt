@@ -1,12 +1,12 @@
 LA TABLE DES SYMBOLES : 
     PAS DE DOUBLE DECLARATIONS - done
-    PAS D'OMBRE VARIABLES -- no variable shadowing : once a variable is declared, it is reachable in the entire code
-    TOUTE VARIABLE DOIT ETRE DECLARER AVANT D'ETRE UTILISE
+    PAS D'OMBRE VARIABLES -- no variable shadowing : once a variable is declared, it is reachable in the entire code - done
+    TOUTE VARIABLE DOIT ETRE DECLARER AVANT D'ETRE UTILISE SAUF LES VARIABLES UTILISES -- done
     LES OPERATEURS UTILISE ONT DES VARIABLES DE TYPE COMPATIBLE -- exemple : 5 + 5; "a" +"hfb"; are okay, but "he" / 2  or arr[1.64] are not
-        + : string, string | nombre, nombre
-        AUTRES OPERATIONS ARITHMETIQUES ET BINAIRES : nombre, nombre
-        AUTRES OPERATIONS LOGIQUES : nombre, nombre
+        // + : string, string | nombre, nombre - done
+        // AUTRES OPERATIONS ARITHMETIQUES ET BINAIRES : nombre, nombre
+        // AUTRES OPERATIONS LOGIQUES : nombre, nombre
         .split, .reverse(), .length : string
-    LES NOMBRE DANS LA VERSION SONT POSITIFS
+    LES NOMBRE DANS LA VERSION SONT POSITIFS - done
     Les commentaires peuvent être écrit n’importe où
     Les commentaires ne doivent pas être interprétés
