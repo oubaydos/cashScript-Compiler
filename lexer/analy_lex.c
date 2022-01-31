@@ -9,7 +9,7 @@ void next_sym(){
     skip_white_spaces();
     switch(curr_char){
         case '+': curr_sym=OPERATEUR_PLUS_TOKEN;lex_get_next_char();break;
-        case '-': curr_sym=MOINS_TOKEN;lex_get_next_char();break;
+        case '-': curr_sym=OPERATEUR_MOINS_TOKEN;lex_get_next_char();break;
         //case '*': curr_sym=MULT_TOKEN;lex_get_next_char();break;
         //case '/': curr_sym=DIV_TOKEN;lex_get_next_char();break;
         case ';': curr_sym=POINT_VIRGULE_TOKEN;lex_get_next_char();break;

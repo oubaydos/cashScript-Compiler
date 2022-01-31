@@ -8,7 +8,7 @@ contract Mecenas(bytes recipient, bytes funder, int pledge) {
         require(checkSig(s, pk));
 
         // Check that the UTXO is at least 30 days old
-        require(tx_age >= 30 days);
+        require_time(tx_age >= 30 days);
 
         // Use a hardcoded miner fee
         int minerFee = 1000;
@@ -17,32 +17,38 @@ contract Mecenas(bytes recipient, bytes funder, int pledge) {
         int intValue = int(bytes(tx_value));
 
         // Check if the UTXO's value is higher than the pledge amount + fee
-        if (intValue <= pledge + minerFee) {
+        if (intValue <= pledge ) {
             // Create an Output that sends the remaining balance to the recipient
             bytes out1 = new OutputP2PKH(bytes(intValue - minerFee), recipient);
 
             // Enforce that this is the only output for the current transaction
-            require(hash256(out1) == tx_hashOutputs);
+            string temp = hash256(out1);
+            string temp2 = tx_hashOutputs;
+            require(  temp2 == temp);
         } else {
             // Create an Output that sends the pledge amount to the recipient
             bytes out1 = new OutputP2PKH(bytes(pledge), recipient);
 
             // Create an Output that sends the remainder back to the contract
-            bytes remainder = bytes(intValue - pledge - minerFee);
+            int temp3 = intValue - pledge ;
+            int temp4 = temp3 - minerFee;
+            bytes remainder = bytes(temp3);
             bytes out2 = new OutputP2SH(remainder, hash160(tx_bytecode));
             string tempString = "hello";
             string tempString2 = "hello";
             int a = 5;
             int b = a+ 6;
-            require_time(tempString == tempString2, 5);
+            require(tempString == tempString2);
 
             // Enforce that these are the only outputs for the current transaction
-            require(hash256(out1 + out2) == tx_hashOutputs);
+            string temp6 = hash256(out1 + out2);
+            string temp7 = tx_hashOutputs;
+            require( temp6 == temp7);
         }
         while (true){
             int a = 5;
             int b = a + 6;
-            require_time(tempString == tempString2, 5);
+            require(tempString == tempString2);
         }
         string alpha = "";
         input(alpha);
@@ -51,7 +57,9 @@ contract Mecenas(bytes recipient, bytes funder, int pledge) {
 
     // Allow the funder to reclaim their remaining pledges
     function reclaim(pubkey pk, sig s) {
-        require(hash160(pk) == funder);
+    temp6 = hash160(pk);
+    temp7 = funder;
+        require(temp6 == temp7);
         require(checkSig(s, pk));
     }
 }

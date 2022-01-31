@@ -1,0 +1,2 @@
+every operation should be between two variables and/or literals and not a statement :
+    for example f(x) < 5 is not allowed but int a = f(x); a < 5 is

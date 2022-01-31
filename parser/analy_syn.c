@@ -36,9 +36,9 @@ void DIRECTIVE_PRAGMA() {
 void VALEUR_PRAGMA() {
     CONTRAINTE_VERSION();
     if (symbols[cursor].token == NOMBRE_LITTERAL_TOKEN || symbols[cursor].token == OPERATEUR_BINAIRE_XOR_TOKEN
-        || symbols[cursor].token == OPERATEUR_BINAIRE_NON_TOKEN || symbols[cursor].token == SUPEG_TOKEN
-        || symbols[cursor].token == SUP_TOKEN || symbols[cursor].token == INF_TOKEN
-        || symbols[cursor].token == INFEG_TOKEN || symbols[cursor].token == EG_TOKEN) {
+        || symbols[cursor].token == OPERATEUR_BINAIRE_NON_TOKEN || symbols[cursor].token == OPERATEUR_SUPEG_TOKEN
+        || symbols[cursor].token == OPERATEUR_SUP_TOKEN || symbols[cursor].token == OPERATEUR_INF_TOKEN
+        || symbols[cursor].token == OPERATEUR_INFEG_TOKEN || symbols[cursor].token == OPERATEUR_EG_TOKEN) {
         CONTRAINTE_VERSION();
     } else if (symbols[cursor].token != POINT_VIRGULE_TOKEN) {
         printError(POINT_VIRGULE_TOKEN);
@@ -48,9 +48,9 @@ void VALEUR_PRAGMA() {
 
 void CONTRAINTE_VERSION() {
     if (symbols[cursor].token == OPERATEUR_BINAIRE_XOR_TOKEN
-        || symbols[cursor].token == OPERATEUR_BINAIRE_NON_TOKEN || symbols[cursor].token == SUPEG_TOKEN
-        || symbols[cursor].token == SUP_TOKEN || symbols[cursor].token == INF_TOKEN
-        || symbols[cursor].token == INFEG_TOKEN || symbols[cursor].token == EG_TOKEN) {
+        || symbols[cursor].token == OPERATEUR_BINAIRE_NON_TOKEN || symbols[cursor].token == OPERATEUR_SUPEG_TOKEN
+        || symbols[cursor].token == OPERATEUR_SUP_TOKEN || symbols[cursor].token == OPERATEUR_INF_TOKEN
+        || symbols[cursor].token == OPERATEUR_INFEG_TOKEN || symbols[cursor].token == OPERATEUR_EG_TOKEN) {
         OPERATEUR_VERSION();
     }
     VERSION_LITTERALE_TOKEN();
@@ -64,17 +64,17 @@ void OPERATEUR_VERSION() {
         case OPERATEUR_BINAIRE_NON_TOKEN:
             test_sym(OPERATEUR_BINAIRE_NON_TOKEN);
             break;
-        case SUPEG_TOKEN:
-            test_sym(SUPEG_TOKEN);
+        case OPERATEUR_SUPEG_TOKEN:
+            test_sym(OPERATEUR_SUPEG_TOKEN);
             break;
-        case INF_TOKEN :
-            test_sym(INF_TOKEN);
+        case OPERATEUR_INF_TOKEN :
+            test_sym(OPERATEUR_INF_TOKEN);
             break;
-        case INFEG_TOKEN:
-            test_sym(INFEG_TOKEN);
+        case OPERATEUR_INFEG_TOKEN:
+            test_sym(OPERATEUR_INFEG_TOKEN);
             break;
-        case EG_TOKEN:
-            test_sym(EG_TOKEN);
+        case OPERATEUR_EG_TOKEN:
+            test_sym(OPERATEUR_EG_TOKEN);
             break;
         default: {
             printError(ERROR_TOKEN);
@@ -112,8 +112,8 @@ void DEFINITION_FONCTION() {
            || symbols[cursor].token == TYPE_SIGNATURE_DONNEE_TOKEN || symbols[cursor].token == BYTES_TOKEN
            || symbols[cursor].token == IDENTIFIANT_TOKEN || symbols[cursor].token == REQUIRE_TIME_TOKEN
            || symbols[cursor].token == REQUIRE_TOKEN || symbols[cursor].token == IF_TOKEN
-           || symbols[cursor].token == WHILE_TOKEN || symbols[cursor].token == READ_TOKEN ||
-           symbols[cursor].token == WRITE_TOKEN
+           || symbols[cursor].token == WHILE_TOKEN || symbols[cursor].token == LIRE_TOKEN ||
+           symbols[cursor].token == ECRIRE_TOKEN
             ) {
         DECLARATION();
     }
@@ -161,7 +161,7 @@ void BLOC() {
                || symbols[cursor].token == IDENTIFIANT_TOKEN || symbols[cursor].token == REQUIRE_TIME_TOKEN
                || symbols[cursor].token == REQUIRE_TOKEN || symbols[cursor].token == IF_TOKEN ||
                symbols[cursor].token == WHILE_TOKEN
-               || symbols[cursor].token == WRITE_TOKEN || symbols[cursor].token == READ_TOKEN
+               || symbols[cursor].token == ECRIRE_TOKEN || symbols[cursor].token == LIRE_TOKEN
                 ) {
             DECLARATION();
         }
@@ -173,7 +173,7 @@ void BLOC() {
                || symbols[cursor].token == IDENTIFIANT_TOKEN || symbols[cursor].token == REQUIRE_TIME_TOKEN
                || symbols[cursor].token == REQUIRE_TOKEN || symbols[cursor].token == IF_TOKEN ||
                symbols[cursor].token == WHILE_TOKEN
-               || symbols[cursor].token == WRITE_TOKEN || symbols[cursor].token == READ_TOKEN) {
+               || symbols[cursor].token == ECRIRE_TOKEN || symbols[cursor].token == LIRE_TOKEN) {
         DECLARATION();
     } else {
         printError(ERROR_TOKEN);
@@ -199,9 +199,9 @@ void DECLARATION() {
         SI();
     } else if (symbols[cursor].token == WHILE_TOKEN) {
         WHILE();
-    } else if (symbols[cursor].token == WRITE_TOKEN) {
+    } else if (symbols[cursor].token == ECRIRE_TOKEN) {
         ECRIRE();
-    } else if (symbols[cursor].token == READ_TOKEN) {
+    } else if (symbols[cursor].token == LIRE_TOKEN) {
         LIRE();
     } else {
         printError(ERROR_TOKEN);
@@ -215,17 +215,17 @@ void DEFINITION_VARIABLE() {
 //    asserIdentifierDoesnotExist(keywordsTable[cursor]);
     // -------------
     test_sym(IDENTIFIANT_TOKEN);
-    test_sym(EG_TOKEN);
+    test_sym(OPERATEUR_EG_TOKEN);
     EXPRESSION();
     test_sym(POINT_VIRGULE_TOKEN);
 }
 
 void AFFECTATION() {
     // --- check if identifier exists
-    asserIdentifierExistsBeforeUse(keywordsTable[cursor]);
+//    asserIdentifierExistsBeforeUse(keywordsTable[cursor]);
     // -------------
     test_sym(IDENTIFIANT_TOKEN);
-    test_sym(EG_TOKEN);
+    test_sym(OPERATEUR_EG_TOKEN);
     EXPRESSION();
     test_sym(POINT_VIRGULE_TOKEN);
 }
@@ -234,13 +234,14 @@ void TEMPS_DECLARATION() {
     test_sym(REQUIRE_TIME_TOKEN);
     test_sym(PARENTHESE_O_TOKEN);
     TX_VAR_TOKEN();
-    test_sym(SUPEG_TOKEN);
+    test_sym(OPERATEUR_SUPEG_TOKEN);
     EXPRESSION();
     test_sym(PARENTHESE_F_TOKEN);
     test_sym(POINT_VIRGULE_TOKEN);
 }
-
+int temp = 0;
 void requireStatement() {
+    temp++;
     test_sym(REQUIRE_TOKEN);
     test_sym(PARENTHESE_O_TOKEN);
     EXPRESSION();
@@ -282,7 +283,7 @@ void LISTE_EXPRESSIONS() {
         || symbols[cursor].token == GUILLEMET_SIMPLE_TOKEN || symbols[cursor].token == GUILLEMET_TOKEN
         || symbols[cursor].token == DATE_TOKEN || symbols[cursor].token == HEX_LITTERAL_TOKEN ||
         symbols[cursor].token == OPERATEUR_NON_TOKEN
-        || symbols[cursor].token == MOINS_TOKEN || symbols[cursor].token == CROCHET_O_TOKEN
+        || symbols[cursor].token == OPERATEUR_MOINS_TOKEN || symbols[cursor].token == CROCHET_O_TOKEN
         || symbols[cursor].token == TX_VERSION_TOKEN || symbols[cursor].token == TX_HASHPREVOUTS_TOKEN ||
         symbols[cursor].token == TX_HASHSEQUENCE_TOKEN
         || symbols[cursor].token == TX_OUTPOINT_TOKEN || symbols[cursor].token == TX_BYTECODE_TOKEN ||
@@ -310,7 +311,7 @@ void LISTE_EXPRESSIONS() {
                                                           || symbols[cursor + 1].token == DATE_TOKEN ||
                                                           symbols[cursor + 1].token == HEX_LITTERAL_TOKEN ||
                                                           symbols[cursor + 1].token == OPERATEUR_NON_TOKEN
-                                                          || symbols[cursor + 1].token == MOINS_TOKEN ||
+                                                          || symbols[cursor + 1].token == OPERATEUR_MOINS_TOKEN ||
                                                           symbols[cursor + 1].token == CROCHET_O_TOKEN
                                                           || symbols[cursor + 1].token == TX_VERSION_TOKEN ||
                                                           symbols[cursor + 1].token == TX_HASHPREVOUTS_TOKEN ||
@@ -355,7 +356,7 @@ void EXPRESSION() {
              || symbols[cursor + 1].token == GUILLEMET_SIMPLE_TOKEN || symbols[cursor + 1].token == GUILLEMET_TOKEN
              || symbols[cursor + 1].token == DATE_TOKEN || symbols[cursor + 1].token == HEX_LITTERAL_TOKEN ||
              symbols[cursor + 1].token == OPERATEUR_NON_TOKEN
-             || symbols[cursor + 1].token == MOINS_TOKEN || symbols[cursor + 1].token == CROCHET_O_TOKEN
+             || symbols[cursor + 1].token == OPERATEUR_MOINS_TOKEN || symbols[cursor + 1].token == CROCHET_O_TOKEN
              || symbols[cursor + 1].token == TX_VERSION_TOKEN || symbols[cursor + 1].token == TX_HASHPREVOUTS_TOKEN ||
              symbols[cursor + 1].token == TX_HASHSEQUENCE_TOKEN
              || symbols[cursor + 1].token == TX_OUTPOINT_TOKEN || symbols[cursor + 1].token == TX_BYTECODE_TOKEN ||
@@ -371,7 +372,7 @@ void EXPRESSION() {
     } else if (symbols[cursor].token == NOUVEAU_TOKEN) {
         test_sym(NOUVEAU_TOKEN);
         // --- check if identifier exists
-        asserIdentifierExistsBeforeUse(keywordsTable[cursor]);
+//        asserIdentifierExistsBeforeUse(keywordsTable[cursor]);
         // -------------
         test_sym(IDENTIFIANT_TOKEN);
         LISTE_EXPRESSIONS();
@@ -412,25 +413,25 @@ void EXPRESSION() {
             case OPERATEUR_MODULO_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case PLUS_TOKEN:
+            case OPERATEUR_PLUS_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case MOINS_TOKEN:
+            case OPERATEUR_MOINS_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case INF_TOKEN:
+            case OPERATEUR_INF_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case INFEG_TOKEN:
+            case OPERATEUR_INFEG_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case SUP_TOKEN:
+            case OPERATEUR_SUP_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case SUPEG_TOKEN:
+            case OPERATEUR_SUPEG_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case EG_TOKEN:
+            case OPERATEUR_EG_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
             case OPERATEUR_DIFFERENT_TOKEN:
@@ -451,6 +452,10 @@ void EXPRESSION() {
             case OPERATEUR_OU_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
+            case OPERATEUR_EGAL_TOKEN:
+                DEUXIEME_EXPRESSION_BINAIRE();
+                break;
+
         }
     } else if (symbols[cursor].token == TRUE_TOKEN || symbols[cursor].token == FALSE_TOKEN ||
                symbols[cursor].token == NOMBRE_LITTERAL_TOKEN
@@ -489,25 +494,25 @@ void EXPRESSION() {
             case OPERATEUR_MODULO_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case PLUS_TOKEN:
+            case OPERATEUR_PLUS_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case MOINS_TOKEN:
+            case OPERATEUR_MOINS_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case INF_TOKEN:
+            case OPERATEUR_INF_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case INFEG_TOKEN:
+            case OPERATEUR_INFEG_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case SUP_TOKEN:
+            case OPERATEUR_SUP_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case SUPEG_TOKEN:
+            case OPERATEUR_SUPEG_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
-            case EG_TOKEN:
+            case OPERATEUR_EG_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
             case OPERATEUR_DIFFERENT_TOKEN:
@@ -528,12 +533,21 @@ void EXPRESSION() {
             case OPERATEUR_OU_TOKEN:
                 DEUXIEME_EXPRESSION_BINAIRE();
                 break;
+            case POINT_VIRGULE_TOKEN:
+                if (symbols[cursor-1].token == GUILLEMET_SIMPLE_TOKEN || symbols[cursor - 1].token == GUILLEMET_TOKEN)
+                    break;
+//                else {
+//                    printError(POINT_VIRGULE_TOKEN);
+//                    exit(EXIT_FAILURE);
+//                    break;
+//                }
+
         }
     } else if (symbols[cursor].token == OPERATEUR_NON_TOKEN) {
         test_sym(OPERATEUR_NON_TOKEN);
         EXPRESSION();
-    } else if (symbols[cursor].token == MOINS_TOKEN) {
-        test_sym(MOINS_TOKEN);
+    } else if (symbols[cursor].token == OPERATEUR_MOINS_TOKEN) {
+        test_sym(OPERATEUR_MOINS_TOKEN);
         EXPRESSION();
     } else if (symbols[cursor].token == CROCHET_O_TOKEN) {
         test_sym(CROCHET_O_TOKEN);
@@ -547,7 +561,7 @@ void EXPRESSION() {
             || symbols[cursor].token == GUILLEMET_SIMPLE_TOKEN || symbols[cursor].token == GUILLEMET_TOKEN
             || symbols[cursor].token == DATE_TOKEN || symbols[cursor].token == HEX_LITTERAL_TOKEN ||
             symbols[cursor].token == OPERATEUR_NON_TOKEN
-            || symbols[cursor].token == MOINS_TOKEN || symbols[cursor].token == CROCHET_O_TOKEN
+            || symbols[cursor].token == OPERATEUR_MOINS_TOKEN || symbols[cursor].token == CROCHET_O_TOKEN
             || symbols[cursor].token == TX_VERSION_TOKEN || symbols[cursor].token == TX_HASHPREVOUTS_TOKEN ||
             symbols[cursor].token == TX_HASHSEQUENCE_TOKEN
             || symbols[cursor].token == TX_OUTPOINT_TOKEN || symbols[cursor].token == TX_BYTECODE_TOKEN ||
@@ -575,7 +589,7 @@ void EXPRESSION() {
                                                               || symbols[cursor + 1].token == DATE_TOKEN ||
                                                               symbols[cursor + 1].token == HEX_LITTERAL_TOKEN ||
                                                               symbols[cursor + 1].token == OPERATEUR_NON_TOKEN
-                                                              || symbols[cursor + 1].token == MOINS_TOKEN ||
+                                                              || symbols[cursor + 1].token == OPERATEUR_MOINS_TOKEN ||
                                                               symbols[cursor + 1].token == CROCHET_O_TOKEN
                                                               || symbols[cursor + 1].token == TX_VERSION_TOKEN ||
                                                               symbols[cursor + 1].token == TX_HASHPREVOUTS_TOKEN ||
@@ -619,27 +633,27 @@ void DEUXIEME_EXPRESSION_BINAIRE() {
         case OPERATEUR_MODULO_TOKEN:
             test_sym(OPERATEUR_MODULO_TOKEN);
             break;
-        case PLUS_TOKEN:
+        case OPERATEUR_PLUS_TOKEN:
             // assertPlusOperationIsValid(keywordsTable[cursor-1],keywordsTable[cursor+1]);
-            test_sym(PLUS_TOKEN);
+            test_sym(OPERATEUR_PLUS_TOKEN);
             break;
-        case MOINS_TOKEN:
-            test_sym(MOINS_TOKEN);
+        case OPERATEUR_MOINS_TOKEN:
+            test_sym(OPERATEUR_MOINS_TOKEN);
             break;
-        case INF_TOKEN:
-            test_sym(INF_TOKEN);
+        case OPERATEUR_INF_TOKEN:
+            test_sym(OPERATEUR_INF_TOKEN);
             break;
-        case INFEG_TOKEN:
-            test_sym(INFEG_TOKEN);
+        case OPERATEUR_INFEG_TOKEN:
+            test_sym(OPERATEUR_INFEG_TOKEN);
             break;
-        case SUP_TOKEN:
-            test_sym(SUP_TOKEN);
+        case OPERATEUR_SUP_TOKEN:
+            test_sym(OPERATEUR_SUP_TOKEN);
             break;
-        case SUPEG_TOKEN:
-            test_sym(SUPEG_TOKEN);
+        case OPERATEUR_SUPEG_TOKEN:
+            test_sym(OPERATEUR_SUPEG_TOKEN);
             break;
-        case EG_TOKEN:
-            test_sym(EG_TOKEN);
+        case OPERATEUR_EGAL_TOKEN:
+            test_sym(OPERATEUR_EGAL_TOKEN);
             break;
         case OPERATEUR_DIFFERENT_TOKEN:
             test_sym(OPERATEUR_DIFFERENT_TOKEN);
@@ -668,7 +682,7 @@ void DEUXIEME_EXPRESSION_BINAIRE() {
     }
     if (symbols[cursor].token == IDENTIFIANT_TOKEN) {
         // --- check if identifier exists
-        asserIdentifierExistsBeforeUse(keywordsTable[cursor]);
+//        asserIdentifierExistsBeforeUse(keywordsTable[cursor]);
         // -------------
         test_sym(IDENTIFIANT_TOKEN);
     } else if (symbols[cursor].token == TRUE_TOKEN || symbols[cursor].token == FALSE_TOKEN ||
@@ -775,7 +789,7 @@ void WHILE() {
 }
 
 void ECRIRE() {
-    test_sym(WRITE_TOKEN);
+    test_sym(ECRIRE_TOKEN);
     test_sym(PARENTHESE_O_TOKEN);
     EXPRESSION();
     test_sym(PARENTHESE_F_TOKEN);
@@ -784,10 +798,11 @@ void ECRIRE() {
 }
 
 void LIRE() {
-    test_sym(READ_TOKEN);
+    test_sym(LIRE_TOKEN);
     // --- check if identifier exists
-    asserIdentifierExistsBeforeUse(keywordsTable[cursor]);
+//    asserIdentifierExistsBeforeUse(keywordsTable[cursor]);
     // -------------
+    test_sym(PARENTHESE_O_TOKEN);
     test_sym(IDENTIFIANT_TOKEN);
     test_sym(PARENTHESE_F_TOKEN);
     test_sym(POINT_VIRGULE_TOKEN);
@@ -952,7 +967,7 @@ void BYTES() {
 }
 
 int main() {
-    fp = fopen("../tests/test2.cash", "r"); // for debuging
+    fp = fopen("../tests/test1.cash", "r"); // for debuging
     if (fp == NULL) {
         perror("Error in opening file");
         return -1;
