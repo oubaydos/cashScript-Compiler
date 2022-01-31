@@ -265,10 +265,11 @@ if(curr_sym==GUILLEMET_TOKEN){
         {
             next_sym();
         }
+        if(curr_sym==GUILLEMET_TOKEN){
         symbols[i]=(SYMBOL){STRING_VALEUR_TOKEN,current_line};
         i++;
         symbols[i]=(SYMBOL){GUILLEMET_TOKEN,current_line};
-        i++;
+    i++;}
         
          next_sym();
         }
@@ -282,10 +283,11 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
         {
             next_sym();
         }
+        if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
         symbols[i]=(SYMBOL){STRING_VALEUR_TOKEN,current_line};
         i++;
         symbols[i]=(SYMBOL){GUILLEMET_SIMPLE_TOKEN,current_line};
-        i++;
+        i++;}
         
          next_sym();
         }
