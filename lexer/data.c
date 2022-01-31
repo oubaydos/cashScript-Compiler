@@ -149,17 +149,9 @@ const char* TOKEN_ERRORS[]={//TODO:
 
 };
 const LANGUAGE_KEYWORD pascal_keywords[]={
-    {PROGRAM_TOKEN,"program"},
-    {CONST_TOKEN,"const"},
-    {BEGIN_TOKEN,"begin"},
-    {END_TOKEN,"end"},
     {IF_TOKEN,"if"},
-    {THEN_TOKEN,"then"},
     {WHILE_TOKEN,"while"},
-    {DO_TOKEN,"do"},
-    {READ_TOKEN,"read"},
-    {WRITE_TOKEN,"write"},
-    {VAR_TOKEN,"var"},
+ 
     {REQUIRE_TOKEN,"require"},
     //{REQUIRE_TOKEN_UNDER,"require_"},
     {REQUIRE_TIME_TOKEN,"require_time"},
@@ -186,9 +178,7 @@ const LANGUAGE_KEYWORD pascal_keywords[]={
     {NOUVEAU_TOKEN,"new"},
     {SPLIT_TOKEN,"split"},
     {SINON,"else"},
-    //{TX,"tx"},
-    //{AGE,"age"},
-    //{TIME,"time"},
+   
 
 
 
