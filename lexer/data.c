@@ -46,7 +46,7 @@ const char* TOKEN_NAMES[]={
     "BOOLEAN_LITTERAL_TOKEN",
     
     "BYTES_TOKEN",
-    "UNITE_TOKEN",
+    // "UNITE_TOKEN",
     "PRAGMA_TOKEN",
     "ACCOLADE_F_TOKEN",
     "ACCOLADE_O_TOKEN",
