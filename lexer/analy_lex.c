@@ -171,10 +171,14 @@ void print_token(LEX_CODE curr_sym){
 }
 
 void read_number(){
-    while(isdigit(curr_char)){
+    int i =0;
+    while(isdigit(curr_char)||isalpha(curr_char)){
+        if(isalpha(curr_char)!=0){i++;}
         lex_get_next_char();
     }
-    curr_sym=NOMBRE_LITTERAL_TOKEN;
+    if(i==0){curr_sym=NOMBRE_LITTERAL_TOKEN;}
+    else{    curr_sym=HEX_LITTERAL_TOKEN;
+}
 }
 void read_word(){
     char word[100];
@@ -262,7 +266,7 @@ void analy_lex(FILE *fp){
 
            if(curr_sym==COMMENTAIRE_TOKEN_O  ){
             next_sym();
-            while (curr_sym!=COMMENTAIRE_TOKEN_F)
+            while (curr_sym!=COMMENTAIRE_TOKEN_F && curr_sym!=EOF_TOKEN)
             {
                 next_sym();
             }
