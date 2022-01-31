@@ -153,6 +153,4 @@ CashScript est un langage de programmation de haut niveau pour les contrats inte
 
 # Utilisation 
 pour utiliser le compilateur vous devez au dossier tests le programme sous le nom test.cash
-et le compilé par la commande : 
-* gcc -g ./semantic-analyzer/*.c -o main.exe -lm
-* .\main.exe
+et le compilé parl'utilisation de  : **cmake** *voir :* [comment utiliser cmake](https://stackoverflow.com/questions/9878225/using-cmake-on-windows-for-c/36955042)
