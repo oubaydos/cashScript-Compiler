@@ -269,7 +269,8 @@ if(curr_sym==GUILLEMET_TOKEN){
         symbols[i]=(SYMBOL){STRING_VALEUR_TOKEN,current_line};
         i++;
         symbols[i]=(SYMBOL){GUILLEMET_TOKEN,current_line};
-    i++;}
+    i++;}else{symbols[i]=(SYMBOL){ERROR_TOKEN,current_line};
+        i++;}
         
          next_sym();
         }
@@ -287,6 +288,7 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
         symbols[i]=(SYMBOL){STRING_VALEUR_TOKEN,current_line};
         i++;
         symbols[i]=(SYMBOL){GUILLEMET_SIMPLE_TOKEN,current_line};
+        i++;}else{symbols[i]=(SYMBOL){ERROR_TOKEN,current_line};
         i++;}
         
          next_sym();
@@ -394,7 +396,7 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
             }
             
             else{
-             symbols[i]=(SYMBOL){code1,current_line};
+             symbols[i]=(SYMBOL){POINT_TOKEN,current_line};
         i++;symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
         i++;symbols[i]=(SYMBOL){code3,current_line};
         i++;symbols[i]=(SYMBOL){code4,current_line};
@@ -402,7 +404,7 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
             else{
             
             //for debuging 
-        symbols[i]=(SYMBOL){code1,current_line};
+        symbols[i]=(SYMBOL){POINT_TOKEN,current_line};
         i++;symbols[i]=(SYMBOL){IDENTIFIANT_TOKEN,current_line};
         i++;symbols[i]=(SYMBOL){code3,current_line};
         i++;
@@ -412,7 +414,7 @@ if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
         
         
         else{
-        symbols[i]=(SYMBOL){code1,current_line};
+        symbols[i]=(SYMBOL){POINT_TOKEN,current_line};
         i++;
         symbols[i]=(SYMBOL){code2,current_line};
         i++;
