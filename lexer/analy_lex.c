@@ -172,11 +172,18 @@ void print_token(LEX_CODE curr_sym){
 
 void read_number(){
     int i =0;
+    
+    
     while(isdigit(curr_char)||isalpha(curr_char)){
         if(isalpha(curr_char)!=0){i++;}
+        
         lex_get_next_char();
     }
+   
     if(i==0){curr_sym=NOMBRE_LITTERAL_TOKEN;}
+  
+    
+    
     else{    curr_sym=HEX_LITTERAL_TOKEN;
 }
 }
@@ -248,6 +255,40 @@ void analy_lex(FILE *fp){
         code1=curr_sym;
 
 
+if(curr_sym==GUILLEMET_TOKEN){
+     symbols[i]=(SYMBOL){GUILLEMET_TOKEN,current_line};
+        i++;
+
+        next_sym();
+
+        while (curr_sym!=GUILLEMET_TOKEN && curr_sym!=EOF_TOKEN)
+        {
+            next_sym();
+        }
+        symbols[i]=(SYMBOL){STRING_VALEUR_TOKEN,current_line};
+        i++;
+        symbols[i]=(SYMBOL){GUILLEMET_TOKEN,current_line};
+        i++;
+        
+         next_sym();
+        }
+if(curr_sym==GUILLEMET_SIMPLE_TOKEN){
+     symbols[i]=(SYMBOL){GUILLEMET_SIMPLE_TOKEN,current_line};
+        i++;
+
+        next_sym();
+
+        while (curr_sym!=GUILLEMET_SIMPLE_TOKEN && curr_sym!=EOF_TOKEN)
+        {
+            next_sym();
+        }
+        symbols[i]=(SYMBOL){STRING_VALEUR_TOKEN,current_line};
+        i++;
+        symbols[i]=(SYMBOL){GUILLEMET_SIMPLE_TOKEN,current_line};
+        i++;
+        
+         next_sym();
+        }
 
 
 
